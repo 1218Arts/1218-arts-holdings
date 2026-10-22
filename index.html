@@ -1,734 +1,811 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>1218 Arts Holdings LLC</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<title>1218 Arts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="impact-site-verification" content="bcf2c031-cec3-4703-80c0-dc84ffd09a3d">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ─── TOKENS ─────────────────────────────────────────────────────────────
+   Layout: single-column with full-bleed section bands, offset grid cards
+   Color: obsidian base, warm bronze accent, dusty rose signal
+   Type: Playfair Display (editorial) + DM Sans (utility) + DM Mono (labels)
+*/
+:root {
+  --ink:        #0D0C0B;
+  --paper:      #F2EDE5;
+  --mist:       #C8C0B4;
+  --smoke:      #6A6258;
+  --bronze:     #8B6E3A;
+  --bronze-lt:  #B8924E;
+  --rose:       #C4796A;
+  --card-bg:    #181614;
+  --border:     rgba(139, 110, 58, 0.22);
+  --border-lt:  rgba(139, 110, 58, 0.12);
 
-  :root {
-    --obsidian: #0A0A0B;
-    --gold: #9A7A2E;
-    --gold-light: #C4A052;
-    --cream: #F5F0E8;
-    --warm-grey: #8A8070;
-    --charcoal: #1C1C1E;
-    --border: rgba(154, 122, 46, 0.2);
-  }
+  --f-display:  'Playfair Display', Georgia, serif;
+  --f-body:     'DM Sans', system-ui, sans-serif;
+  --f-mono:     'DM Mono', 'Courier New', monospace;
 
-  html { scroll-behavior: smooth; }
+  color-scheme: light;
+}
 
-  body {
-    background: var(--obsidian);
-    color: var(--cream);
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
+/* Dark-first — this is a single-theme dark design */
+:root {
+  color-scheme: dark;
+}
 
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 4rem;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.4s, background 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(10, 10, 11, 0.92);
-    border-color: var(--border);
-    backdrop-filter: blur(12px);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: 1rem;
-    letter-spacing: 0.25em;
-    color: var(--cream);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--warm-grey);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold-light); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0 4rem;
-    position: relative;
-    overflow: hidden;
-  }
+html { scroll-behavior: smooth; }
 
-  .hero-year {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(18rem, 30vw, 28rem);
-    line-height: 0.85;
-    letter-spacing: -0.02em;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(154, 122, 46, 0.18);
-    position: absolute;
-    right: -2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    user-select: none;
-    pointer-events: none;
-  }
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
 
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 640px;
-  }
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem max(2.5rem, env(safe-area-inset-left, 16px));
+  transition: background 0.4s, border-color 0.4s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(13, 12, 11, 0.94);
+  backdrop-filter: blur(14px);
+  border-color: var(--border);
+}
 
-  .hero-eyebrow {
-    font-size: 0.65rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.75rem;
-    opacity: 0;
-    transform: translateY(12px);
-    animation: fadeUp 0.9s ease 0.2s forwards;
-  }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--ink);
+}
 
-  .hero-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(2.8rem, 5.5vw, 5rem);
-    line-height: 1.08;
-    letter-spacing: 0.01em;
-    color: var(--cream);
-    margin-bottom: 2rem;
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.9s ease 0.4s forwards;
-  }
+.nav-mark {
+  font-family: var(--f-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  color: var(--paper);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-mark span { color: var(--bronze-lt); }
 
-  .hero-headline em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--bronze-lt); }
 
-  .hero-body {
-    font-size: 0.95rem;
-    font-weight: 300;
-    line-height: 1.85;
-    color: var(--warm-grey);
-    max-width: 460px;
-    margin-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.9s ease 0.6s forwards;
-  }
+.nav-cta {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--bronze);
+  padding: 0.55rem 1.4rem;
+  text-decoration: none;
+  transition: background 0.25s;
+}
+.nav-cta:hover { background: var(--bronze-lt); }
 
-  .hero-cta-group {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.9s ease 0.8s forwards;
-  }
+/* ─── HERO ─── */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0 max(2.5rem, env(safe-area-inset-left, 16px));
+  padding-top: calc(env(safe-area-inset-top, 0px) + 7rem);
+  padding-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+}
 
-  .btn-primary {
-    display: inline-block;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--obsidian);
-    background: var(--gold);
-    padding: 1rem 2.5rem;
-    text-decoration: none;
-    transition: background 0.3s;
-  }
-  .btn-primary:hover { background: var(--gold-light); }
+.hero-bg-text {
+  font-family: var(--f-display);
+  font-size: clamp(10rem, 22vw, 22rem);
+  font-weight: 400;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(139, 110, 58, 0.12);
+  position: absolute;
+  bottom: -0.15em;
+  right: -0.05em;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.03em;
+}
 
-  .btn-ghost {
-    font-size: 0.7rem;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--warm-grey);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 2px;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .btn-ghost:hover { color: var(--cream); border-color: var(--cream); }
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 720px;
+  position: relative;
+  z-index: 2;
+}
 
-  .hero-divider {
-    position: absolute;
-    bottom: 3rem;
-    left: 4rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.9s ease 1s forwards;
-  }
-  .hero-divider span {
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-  }
-  .hero-divider p {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--warm-grey);
-  }
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--bronze);
+  flex-shrink: 0;
+}
 
-  /* SECTION SHARED */
-  section { padding: 8rem 4rem; }
+.hero h1 {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  margin-bottom: 1.75rem;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--bronze-lt);
+}
 
-  .section-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 3.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
+.hero-body {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--mist);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+}
 
-  /* MISSION */
-  .mission { border-top: 1px solid var(--border); }
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
 
-  .mission-inner {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 6rem;
-    align-items: start;
-  }
+.btn-primary {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--bronze);
+  padding: 0.9rem 2.2rem;
+  text-decoration: none;
+  transition: background 0.25s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--bronze-lt); }
 
-  .mission-left h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
-    line-height: 1.15;
-    color: var(--cream);
-  }
+.btn-ghost {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.25s, border-color 0.25s;
+}
+.btn-ghost:hover { color: var(--paper); border-color: var(--mist); }
 
-  .mission-left h2 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
+.hero-scroll {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+.hero-scroll span {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--bronze);
+}
+.hero-scroll p {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
 
-  .mission-right p {
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.95;
-    color: var(--warm-grey);
-    margin-bottom: 1.5rem;
-  }
+/* ─── SECTION BASE ─── */
+.section {
+  padding: 7rem max(2.5rem, env(safe-area-inset-left, 16px));
+  border-top: 1px solid var(--border-lt);
+}
 
-  .mission-right p strong {
-    color: var(--cream);
-    font-weight: 400;
-  }
+.section-label {
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--bronze);
+  flex-shrink: 0;
+}
 
-  /* PORTFOLIO */
-  .portfolio { border-top: 1px solid var(--border); }
+.section-h2 {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.12;
+  color: var(--paper);
+  text-wrap: balance;
+  margin-bottom: 1rem;
+}
+.section-h2 em { font-style: italic; color: var(--bronze-lt); }
 
-  .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    margin-top: 1rem;
-  }
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5rem;
+  align-items: start;
+}
 
-  .portfolio-item {
-    background: var(--obsidian);
-    padding: 2.5rem;
-    transition: background 0.3s;
-    cursor: default;
-  }
-  .portfolio-item:hover { background: var(--charcoal); }
+.about-left .section-h2 { margin-bottom: 2rem; }
 
-  .portfolio-item-tag {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-  }
+.about-right p {
+  font-size: 0.97rem;
+  line-height: 1.9;
+  color: var(--mist);
+  margin-bottom: 1.25rem;
+}
+.about-right p strong {
+  color: var(--paper);
+  font-weight: 500;
+}
 
-  .portfolio-item-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.9rem;
-    font-weight: 400;
-    color: var(--cream);
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.04em;
-  }
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 4rem;
+}
+.stat-cell {
+  background: var(--ink);
+  padding: 2rem 1.5rem;
+}
+.stat-num {
+  font-family: var(--f-display);
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: var(--bronze-lt);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.stat-label {
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
 
-  .portfolio-item-desc {
-    font-size: 0.82rem;
-    font-weight: 300;
-    line-height: 1.75;
-    color: var(--warm-grey);
-  }
+/* ─── AFFILIATE SECTION ─── */
+.affiliate-intro {
+  max-width: 640px;
+  margin-bottom: 4rem;
+}
+.affiliate-intro p {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--mist);
+  margin-top: 1.25rem;
+}
 
-  /* VALUES */
-  .values { border-top: 1px solid var(--border); }
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+.tab-btn {
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--smoke);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-btn:hover, .tab-btn.active {
+  border-color: var(--bronze);
+  color: var(--bronze-lt);
+  background: rgba(139, 110, 58, 0.08);
+}
 
-  .values-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border);
+}
 
-  .values-intro h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(2.2rem, 3vw, 2.8rem);
-    line-height: 1.15;
-    color: var(--cream);
-    margin-bottom: 2rem;
-  }
+.tool-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: background 0.25s;
+  text-decoration: none;
+  color: inherit;
+}
+.tool-card:hover { background: #201E1B; }
+.tool-card[hidden] { display: none !important; }
 
-  .values-intro p {
-    font-size: 0.9rem;
-    line-height: 1.9;
-    color: var(--warm-grey);
-  }
+.tool-cat {
+  font-family: var(--f-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
 
-  .values-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
+.tool-name {
+  font-family: var(--f-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+}
 
-  .value-row {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .value-row:last-child { border-bottom: none; padding-bottom: 0; }
+.tool-desc {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--smoke);
+  flex: 1;
+}
 
-  .value-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.85rem;
-    color: var(--gold);
-    padding-top: 3px;
-    flex-shrink: 0;
-    width: 1.5rem;
-  }
+.tool-link {
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bronze-lt);
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.tool-link::after { content: '→'; }
 
-  .value-text h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: 1.2rem;
-    color: var(--cream);
-    margin-bottom: 0.4rem;
-    letter-spacing: 0.02em;
-  }
+/* ─── PARTNER BANNER ─── */
+.partner-band {
+  background: rgba(139, 110, 58, 0.07);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem max(2.5rem, env(safe-area-inset-left, 16px));
+  text-align: center;
+}
+.partner-band h2 {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--paper);
+  max-width: 560px;
+  margin: 0 auto 1rem;
+  text-wrap: balance;
+}
+.partner-band h2 em { font-style: italic; color: var(--bronze-lt); }
+.partner-band p {
+  font-size: 0.92rem;
+  color: var(--mist);
+  margin-bottom: 2rem;
+  line-height: 1.75;
+}
 
-  .value-text p {
-    font-size: 0.82rem;
-    line-height: 1.8;
-    color: var(--warm-grey);
-  }
+/* ─── ENTITIES ─── */
+.entities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 0.5rem;
+}
+.entity-card {
+  background: var(--card-bg);
+  padding: 2.5rem 2rem;
+  transition: background 0.25s;
+}
+.entity-card:hover { background: #201E1B; }
+.entity-tag {
+  font-family: var(--f-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 1.25rem;
+}
+.entity-name {
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+.entity-desc {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--smoke);
+}
 
-  /* STRUCTURE */
-  .structure { border-top: 1px solid var(--border); }
+/* ─── CONTACT ─── */
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.contact-left .section-h2 { margin-bottom: 1.5rem; }
+.contact-left p {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--mist);
+  margin-bottom: 2rem;
+}
 
-  .structure-diagram {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding-top: 1rem;
-  }
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-row { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-row label {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.form-row input,
+.form-row select,
+.form-row textarea {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--paper);
+  font-family: var(--f-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  transition: border-color 0.2s;
+  outline: none;
+  appearance: none;
+}
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus { border-color: var(--bronze); }
+.form-row textarea { resize: vertical; min-height: 110px; }
+.form-row select { cursor: pointer; background-image: none; }
 
-  .structure-node {
-    text-align: center;
-    padding: 1.5rem 3rem;
-    border: 1px solid var(--border);
-    min-width: 260px;
-    position: relative;
-  }
+.form-submit {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--bronze);
+  border: none;
+  padding: 1rem 2.2rem;
+  cursor: pointer;
+  transition: background 0.25s;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--bronze-lt); }
 
-  .structure-node.root {
-    border-color: var(--gold);
-    background: rgba(154, 122, 46, 0.06);
-  }
+.form-success {
+  display: none;
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--bronze-lt);
+  padding: 1rem 0;
+}
 
-  .structure-node-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.4rem;
-  }
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border-lt);
+  padding: 2.5rem max(2.5rem, env(safe-area-inset-left, 16px));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-mark {
+  font-family: var(--f-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  color: var(--bronze);
+  text-transform: uppercase;
+}
+footer p {
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--smoke);
+}
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+.footer-links a {
+  font-family: var(--f-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--bronze-lt); }
 
-  .structure-node-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--cream);
-  }
-
-  .structure-connector {
-    width: 1px;
-    height: 3rem;
-    background: var(--border);
-    position: relative;
-  }
-
-  .structure-branches {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    width: 100%;
-    max-width: 900px;
-    position: relative;
-  }
-  .structure-branches::before {
-    content: '';
-    position: absolute;
-    top: -3rem;
-    left: 0; right: 0;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .structure-branch {
-    background: var(--obsidian);
-    padding: 2rem 1.5rem;
-    text-align: center;
-  }
-
-  .structure-branch-tag {
-    font-size: 0.58rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-  }
-
-  .structure-branch-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    color: var(--cream);
-  }
-
-  .structure-branch-desc {
-    font-size: 0.75rem;
-    color: var(--warm-grey);
-    margin-top: 0.4rem;
-    line-height: 1.6;
-  }
-
-  /* CONTACT / CTA */
-  .cta-section {
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 10rem 4rem;
-  }
-
-  .cta-section h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 1.1;
-    color: var(--cream);
-    max-width: 680px;
-    margin: 0 auto 1.5rem;
-  }
-
-  .cta-section h2 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-
-  .cta-section p {
-    font-size: 0.9rem;
-    color: var(--warm-grey);
-    margin-bottom: 3rem;
-    line-height: 1.8;
-  }
-
-  .cta-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    color: var(--warm-grey);
-  }
-
-  footer .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+/* ─── ANIMATIONS ─── */
+@media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(20px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+}
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 1.25rem 2rem; }
-    section { padding: 5rem 2rem; }
-    .hero { padding: 0 2rem; }
-    .hero-year { font-size: 45vw; right: -1rem; }
-    .mission-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .values-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .structure-branches { grid-template-columns: 1fr; }
-    .structure-node { min-width: auto; width: 100%; max-width: 320px; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-    .hero-divider { left: 2rem; }
-    .nav-links { display: none; }
-  }
+/* ─── RESPONSIVE ─── */
+@media (max-width: 860px) {
+  nav { padding: 1.2rem max(1.25rem, env(safe-area-inset-left, 16px)); }
+  .nav-links { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); }
+  .entities-grid { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .section { padding: 5rem max(1.25rem, env(safe-area-inset-left, 16px)); }
+  .hero { padding-left: max(1.25rem, env(safe-area-inset-left, 16px)); padding-right: max(1.25rem, env(safe-area-inset-right, 16px)); }
+  footer { flex-direction: column; align-items: flex-start; padding-inline: max(1.25rem, env(safe-area-inset-left, 16px)); }
+}
+
+@media (max-width: 540px) {
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .about-stats .stat-cell:last-child { grid-column: span 2; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .btn-row { flex-direction: column; align-items: flex-start; }
+}
 </style>
-</head>
-<body>
 
+<!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">1218 Arts Holdings</a>
+  <a href="#" class="nav-mark">1218 <span>Arts</span></a>
   <ul class="nav-links">
-    <li><a href="#mission">About</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#structure">Structure</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#entities">Portfolio</a></li>
+    <li><a href="#contact">Partner</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Partner With Us</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-year" aria-hidden="true">1218</div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Atlanta, Georgia &nbsp;·&nbsp; Est. 2024</p>
-    <h1 class="hero-headline">
-      A holding company built<br />for <em>culture</em>,<br />community, and craft.
-    </h1>
+    <p class="eyebrow">1218 Arts Holdings LLC</p>
+    <h1>Tools that <em>move</em><br>creative empires</h1>
     <p class="hero-body">
-      1218 Arts Holdings LLC is the parent entity for a family of ventures spanning luxury lifestyle, creative arts, community programming, and cultural enterprise.
+      We build festivals, academies, and events — and we connect our communities with the brands, tools, and partners that make creative work sustainable.
     </p>
-    <div class="hero-cta-group">
-      <a href="#portfolio" class="btn-primary">Our Portfolio</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    <div class="btn-row">
+      <a href="#about" class="btn-primary">Our Story</a>
+      <a href="#contact" class="btn-ghost">Become a Partner</a>
     </div>
   </div>
-  <div class="hero-divider">
+  <div class="hero-scroll">
     <span></span>
-    <p>Scroll to explore</p>
+    <p>Curated by creators, for creators</p>
+  </div>
+  <div class="hero-bg-text" aria-hidden="true">1218</div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <p class="section-label">Who We Are</p>
+  <div class="about-grid">
+    <div class="about-left">
+      <h2 class="section-h2">A holding company<br>built from <em>lived</em><br>creative work</h2>
+    </div>
+    <div class="about-right reveal">
+      <p>1218 Arts Holdings LLC is the parent organization behind a growing portfolio of arts, education, and events ventures. Our name marks the day our founding partnership began — and everything we build reflects that origin.</p>
+      <p>We produce <strong>festivals and live experiences</strong>, run an <strong>arts education academy</strong>, and platform <strong>emerging artists and performers</strong>. We've operated real events, managed real production budgets, and built real communities. The tools we recommend are the ones we've actually used.</p>
+      <p>This resource hub exists because our audiences trust us — and because we believe in being transparent about the partnerships that sustain our work.</p>
+    </div>
+  </div>
+  <div class="about-stats">
+    <div class="stat-cell reveal">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Active Ventures</div>
+    </div>
+    <div class="stat-cell reveal reveal-delay-1">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Community Reach</div>
+    </div>
+    <div class="stat-cell reveal reveal-delay-2">
+      <div class="stat-num">Est.</div>
+      <div class="stat-label">12·18 — The Origin</div>
+    </div>
   </div>
 </section>
 
-<!-- MISSION -->
-<section class="mission" id="mission">
-  <p class="section-label reveal">Our Mission</p>
-  <div class="mission-inner">
-    <div class="mission-left reveal">
-      <h2>Where <em>art</em> meets<br />enterprise.</h2>
-    </div>
-    <div class="mission-right reveal">
-      <p>
-        1218 Arts Holdings LLC was founded on the belief that <strong>creative communities deserve institutional backing</strong>: the kind of infrastructure that allows culture to grow with intention, not by accident.
-      </p>
-      <p>
-        Our family of ventures spans luxury hospitality, lifestyle membership, immersive events, and community programming. Each entity operates independently while drawing on shared values, shared networks, and shared resources.
-      </p>
-      <p>
-        The number 1218 is not incidental. It is the founding date woven into our public narrative, a reminder that <strong>every great institution begins with a moment</strong>, and that moment is always worth honoring.
-      </p>
-    </div>
-  </div>
-</section>
+<!-- AFFILIATE TOOLS: coming soon -->
+
+<!-- PARTNER BAND -->
+<div class="partner-band" id="partner">
+  <h2>Your tool belongs in front of <em>our</em> community</h2>
+  <p>We work with brands that serve event producers, educators, and creative entrepreneurs. If your platform solves a real problem for our audience, let's talk.</p>
+  <a href="#contact" class="btn-primary">Explore Partnership</a>
+</div>
 
 <!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio">
-  <p class="section-label reveal">Portfolio</p>
-  <div class="portfolio-grid">
-    <div class="portfolio-item reveal">
-      <p class="portfolio-item-tag">Flagship Brand</p>
-      <h3 class="portfolio-item-name">VEYŌ</h3>
-      <p class="portfolio-item-desc">A luxury members-only lifestyle and social club for the culturally curious. Three membership tiers. Six sub-brands. One world.</p>
+<section class="section" id="entities">
+  <p class="section-label">Our Portfolio</p>
+  <h2 class="section-h2" style="margin-bottom: 2.5rem;">The ventures behind<br>the <em>recommendations</em></h2>
+  <div class="entities-grid">
+    <div class="entity-card reveal">
+      <div class="entity-tag">Education</div>
+      <div class="entity-name">The Academy</div>
+      <div class="entity-desc">Online courses, coaching programs, and live retreats for creative entrepreneurs and arts practitioners. Our primary community of engaged, growth-oriented students.</div>
     </div>
-    <div class="portfolio-item reveal">
-      <p class="portfolio-item-tag">Events &amp; Academy</p>
-      <h3 class="portfolio-item-name">1218 Arts Collective</h3>
-      <p class="portfolio-item-desc">Immersive productions, curated gatherings, and experiential programming including a signature annual erotic arts festival.</p>
+    <div class="entity-card reveal reveal-delay-1">
+      <div class="entity-tag">Events & Festivals</div>
+      <div class="entity-name">1218 Arts Events</div>
+      <div class="entity-desc">Live experiences including the annual Erotic Arts Festival and a calendar of curated shows, performances, and immersive events across the Southeast and beyond.</div>
     </div>
-    <div class="portfolio-item reveal">
-      <p class="portfolio-item-tag">In Development</p>
-      <h3 class="portfolio-item-name">1218 Arts Foundation</h3>
-      <p class="portfolio-item-desc">A 501(c)(3) nonprofit arm supporting grant-eligible cultural programming, arts education, and community access initiatives.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ENTITY STRUCTURE -->
-<section class="structure" id="structure">
-  <p class="section-label reveal">Legal Structure</p>
-  <div class="structure-diagram reveal">
-    <div class="structure-node root">
-      <p class="structure-node-label">Parent Entity · Georgia Domestic LLC</p>
-      <p class="structure-node-name">1218 Arts Holdings LLC</p>
-    </div>
-    <div class="structure-connector"></div>
-    <div class="structure-branches">
-      <div class="structure-branch">
-        <p class="structure-branch-tag">For-Profit Subsidiary</p>
-        <p class="structure-branch-name">VEYŌ</p>
-        <p class="structure-branch-desc">Luxury lifestyle membership brand &amp; social club</p>
-      </div>
-      <div class="structure-branch">
-        <p class="structure-branch-tag">For-Profit Subsidiary</p>
-        <p class="structure-branch-name">1218 Arts Collective</p>
-        <p class="structure-branch-desc">Live productions, festivals &amp; academy programming</p>
-      </div>
-      <div class="structure-branch">
-        <p class="structure-branch-tag">Nonprofit (In Development)</p>
-        <p class="structure-branch-name">1218 Arts Foundation</p>
-        <p class="structure-branch-desc">501(c)(3) cultural programming &amp; grant initiatives</p>
-      </div>
+    <div class="entity-card reveal reveal-delay-2">
+      <div class="entity-tag">Foundation</div>
+      <div class="entity-name">1218 Arts Foundation</div>
+      <div class="entity-desc">Our nonprofit arm — funding artist grants, residencies, and community arts programming. Coming soon as we complete our 501(c)(3) formation.</div>
     </div>
   </div>
 </section>
 
-<!-- VALUES -->
-<section class="values" id="values">
-  <p class="section-label reveal">What We Stand For</p>
-  <div class="values-inner">
-    <div class="values-intro reveal">
-      <h2>Built on a few<br /><em>uncompromising</em><br />principles.</h2>
-      <p>We believe that the most enduring institutions are built at the crossroads of identity, beauty, and accountability. These are not mission statement words. They are operating commitments.</p>
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <p class="section-label">Work With Us</p>
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2 class="section-h2">Let's build<br>something <em>together</em></h2>
+      <p>Whether you're a brand looking to reach creative professionals, an artist seeking support, or a tool maker who wants authentic placement — we'd love to hear from you.</p>
+      <p>Affiliate partnerships, sponsorships, and collaborations are reviewed on a rolling basis. We only work with products we can genuinely endorse to our community.</p>
     </div>
-    <div class="values-list">
-      <div class="value-row reveal">
-        <span class="value-num">I</span>
-        <div class="value-text">
-          <h3>Community as Capital</h3>
-          <p>The people inside our brands, members, artists, and collaborators, are the primary asset. Every decision is filtered through the question: does this serve the community that made this possible?</p>
+    <div class="contact-right">
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <label for="cf-name">Your Name</label>
+          <input type="text" id="cf-name" name="name" placeholder="Full name" required>
         </div>
-      </div>
-      <div class="value-row reveal">
-        <span class="value-num">II</span>
-        <div class="value-text">
-          <h3>Luxury Without Exclusion</h3>
-          <p>We create elevated spaces that center identities long excluded from them. Luxury and belonging are not in opposition. We refuse to choose between them.</p>
+        <div class="form-row">
+          <label for="cf-email">Email Address</label>
+          <input type="email" id="cf-email" name="email" placeholder="you@company.com" required>
         </div>
-      </div>
-      <div class="value-row reveal">
-        <span class="value-num">III</span>
-        <div class="value-text">
-          <h3>Institutional Permanence</h3>
-          <p>We build with infrastructure, legal, financial, and organizational, because great creative work deserves a foundation that outlasts any single moment.</p>
+        <div class="form-row">
+          <label for="cf-type">Inquiry Type</label>
+          <select id="cf-type" name="type">
+            <option value="">Select one</option>
+            <option value="affiliate">Affiliate / Partnership</option>
+            <option value="sponsorship">Event Sponsorship</option>
+            <option value="collab">Creative Collaboration</option>
+            <option value="artist">Artist Support / Grants</option>
+            <option value="other">Other</option>
+          </select>
         </div>
-      </div>
-      <div class="value-row reveal">
-        <span class="value-num">IV</span>
-        <div class="value-text">
-          <h3>Joy as Direction</h3>
-          <p>We follow excitement as a signal of alignment. If it doesn't light something up, it isn't worth pursuing. This applies to partners, products, and opportunities equally.</p>
+        <div class="form-row">
+          <label for="cf-message">Tell Us More</label>
+          <textarea id="cf-message" name="message" placeholder="What are you working on?"></textarea>
         </div>
-      </div>
+        <button type="submit" class="form-submit">Send Message</button>
+        <p class="form-success" id="form-success">✦ Message received — we'll be in touch soon.</p>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="contact">
-  <h2 class="reveal">Let's build something<br /><em>worth remembering</em>.</h2>
-  <p class="reveal">Inquiries welcome from investors, brand partners, collaborators, and press.</p>
-  <div class="cta-links reveal">
-    <a href="mailto:create@1218arts.vip" class="btn-primary">create@1218arts.vip</a>
-  </div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <span class="footer-logo">1218 Arts Holdings LLC</span>
-  <p>Atlanta, Georgia &nbsp;·&nbsp; All Rights Reserved &nbsp;·&nbsp; &copy; 2025</p>
+  <div class="footer-mark">1218 Arts</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p>© 2026 1218 Arts Holdings LLC · Atlanta, GA</p>
 </footer>
 
 <script>
+  // Nav scroll state
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
 
+  // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+
+  // Contact form
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.querySelectorAll('input, select, textarea, button').forEach(el => el.disabled = true);
+    success.style.display = 'block';
+  });
 </script>
-</body>
-</html>
