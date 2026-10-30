@@ -476,7 +476,30 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 }
 
 @media (max-width: 700px) {
-  .work-grid { grid-template-columns: 1fr; }
+  .work-grid {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .work-card {
+    padding: 28px 20px;
+  }
+  .work-card h3 {
+    font-size: 1.4rem;
+  }
+  .work-card p {
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+  .work-type {
+    font-size: 0.95rem;
+  }
+  .work-tag {
+    font-size: 0.9rem;
+    padding: 5px 12px;
+  }
+  .mockup-hint {
+    font-size: 0.95rem;
+  }
 }
 
 .work-card {
