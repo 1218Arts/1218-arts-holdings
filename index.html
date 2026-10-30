@@ -4,40 +4,70 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* ─── TOKENS ─────────────────────────────────────────────────────────────
-   Layout: single-column with full-bleed section bands, offset grid cards
-   Color: obsidian base, warm bronze accent, dusty rose signal
-   Type: Playfair Display (editorial) + DM Sans (utility) + DM Mono (labels)
+/*
+  Layout: full-bleed dark canvas, staggered grid with intentional whitespace
+  Color: near-black base, electric amber signal, warm off-white type
+  Type: Syne (bold tech-editorial display) + Inter (body) + Space Mono (labels/data)
 */
+
+/* ─── TOKENS ─── */
 :root {
-  --ink:        #0D0C0B;
-  --paper:      #F2EDE5;
-  --mist:       #C8C0B4;
-  --smoke:      #6A6258;
-  --bronze:     #8B6E3A;
-  --bronze-lt:  #B8924E;
-  --rose:       #C4796A;
-  --card-bg:    #181614;
-  --border:     rgba(139, 110, 58, 0.22);
-  --border-lt:  rgba(139, 110, 58, 0.12);
+  --ink:        #0A0908;
+  --ink-2:      #141210;
+  --ink-3:      #1E1B18;
+  --surface:    #252119;
+  --border:     rgba(255,255,255,0.07);
+  --border-md:  rgba(255,255,255,0.12);
+  --paper:      #EDE8DF;
+  --paper-dim:  #A09890;
+  --amber:      #E8A030;
+  --amber-dim:  rgba(232,160,48,0.15);
+  --amber-glow: rgba(232,160,48,0.06);
+  --rose:       #C4706A;
 
-  --f-display:  'Playfair Display', Georgia, serif;
-  --f-body:     'DM Sans', system-ui, sans-serif;
-  --f-mono:     'DM Mono', 'Courier New', monospace;
+  --f-display: 'Syne', system-ui, sans-serif;
+  --f-body:    'Inter', system-ui, sans-serif;
+  --f-mono:    'Space Mono', 'Courier New', monospace;
 
-  color-scheme: light;
-}
-
-/* Dark-first — this is a single-theme dark design */
-:root {
   color-scheme: dark;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Single deliberate dark theme — this is a studio, not a document */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ink:        #F5F1EB;
+    --ink-2:      #EDE8DF;
+    --ink-3:      #E4DDD3;
+    --surface:    #DDD6CB;
+    --border:     rgba(0,0,0,0.08);
+    --border-md:  rgba(0,0,0,0.14);
+    --paper:      #1A1714;
+    --paper-dim:  #5A5248;
+    --amber:      #B87820;
+    --amber-dim:  rgba(184,120,32,0.12);
+    --amber-glow: rgba(184,120,32,0.05);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --ink:        #F5F1EB;
+  --ink-2:      #EDE8DF;
+  --ink-3:      #E4DDD3;
+  --surface:    #DDD6CB;
+  --border:     rgba(0,0,0,0.08);
+  --border-md:  rgba(0,0,0,0.14);
+  --paper:      #1A1714;
+  --paper-dim:  #5A5248;
+  --amber:      #B87820;
+  --amber-dim:  rgba(184,120,32,0.12);
+  --amber-glow: rgba(184,120,32,0.05);
+  color-scheme: light;
+}
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -45,31 +75,27 @@ body {
   color: var(--paper);
   font-family: var(--f-body);
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.65;
   overflow-x: hidden;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 0;
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
 }
+
+img { max-width: 100%; display: block; }
 
 /* ─── NAV ─── */
 nav {
-  position: fixed;
+  position: sticky;
   top: env(safe-area-inset-top, 0px);
-  left: 0; right: 0;
   z-index: 100;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1.4rem max(2.5rem, env(safe-area-inset-left, 16px));
-  transition: background 0.4s, border-color 0.4s;
+  justify-content: space-between;
+  padding: 18px max(24px, env(safe-area-inset-right, 0px)) 18px max(24px, env(safe-area-inset-left, 0px));
+  background: var(--ink);
   border-bottom: 1px solid transparent;
-}
-nav.scrolled {
-  background: rgba(13, 12, 11, 0.94);
-  backdrop-filter: blur(14px);
-  border-color: var(--border);
+  transition: border-color 0.3s, background 0.3s;
 }
 
 body::before {
@@ -77,696 +103,980 @@ body::before {
   position: fixed;
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  z-index: 10;
+  z-index: 101;
   background: var(--ink);
 }
 
-.nav-mark {
+nav.scrolled {
+  border-bottom-color: var(--border);
+  background: rgba(10,9,8,0.92);
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
   font-family: var(--f-display);
-  font-size: 1.05rem;
-  letter-spacing: 0.18em;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
   color: var(--paper);
   text-decoration: none;
-  text-transform: uppercase;
 }
-.nav-mark span { color: var(--bronze-lt); }
+
+.nav-logo span { color: var(--amber); }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 32px;
   list-style: none;
 }
+
 .nav-links a {
   font-family: var(--f-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--paper-dim);
   text-decoration: none;
-  transition: color 0.25s;
+  transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--bronze-lt); }
+
+.nav-links a:hover { color: var(--amber); }
 
 .nav-cta {
   font-family: var(--f-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
-  background: var(--bronze);
-  padding: 0.55rem 1.4rem;
+  background: var(--amber);
+  padding: 9px 18px;
   text-decoration: none;
-  transition: background 0.25s;
+  transition: opacity 0.2s;
 }
-.nav-cta:hover { background: var(--bronze-lt); }
+
+.nav-cta:hover { opacity: 0.85; }
+
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--paper);
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-mobile-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+.nav-mobile-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-mobile-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-mobile-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-drawer {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  background: var(--ink-2);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0 16px;
+}
+
+.nav-drawer.open { display: flex; }
+
+.nav-drawer a {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  text-decoration: none;
+  padding: 14px max(24px, env(safe-area-inset-left, 0px));
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-drawer a:last-child { border-bottom: none; }
+.nav-drawer a:hover { color: var(--amber); background: var(--amber-glow); }
+
+@media (max-width: 700px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-mobile-toggle { display: flex; }
+}
+
+/* ─── WRAPPER ─── */
+.wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
 
 /* ─── HERO ─── */
 .hero {
-  min-height: 100svh;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  padding: 0 max(2.5rem, env(safe-area-inset-left, 16px));
-  padding-top: calc(env(safe-area-inset-top, 0px) + 7rem);
-  padding-bottom: 4rem;
+  padding: clamp(72px, 10vw, 130px) 0 clamp(56px, 8vw, 100px);
+  border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
 
-.hero-bg-text {
-  font-family: var(--f-display);
-  font-size: clamp(10rem, 22vw, 22rem);
-  font-weight: 400;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(139, 110, 58, 0.12);
+.hero::before {
+  content: "";
   position: absolute;
-  bottom: -0.15em;
-  right: -0.05em;
-  user-select: none;
+  top: -60px; right: -80px;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(232,160,48,0.07) 0%, transparent 70%);
   pointer-events: none;
-  letter-spacing: -0.03em;
 }
 
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 720px;
-  position: relative;
-  z-index: 2;
-}
-
-.eyebrow {
+.hero-eyebrow {
   font-family: var(--f-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.32em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bronze);
-  margin-bottom: 1.5rem;
+  color: var(--amber);
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 }
-.eyebrow::before {
-  content: '';
+
+.hero-eyebrow::before {
+  content: "";
   display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--bronze);
-  flex-shrink: 0;
+  width: 28px; height: 1px;
+  background: var(--amber);
 }
 
 .hero h1 {
   font-family: var(--f-display);
-  font-weight: 400;
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--paper);
-  margin-bottom: 1.75rem;
+  font-weight: 800;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   text-wrap: balance;
+  max-width: 820px;
+  margin-bottom: 32px;
 }
+
 .hero h1 em {
-  font-style: italic;
-  color: var(--bronze-lt);
+  font-style: normal;
+  color: var(--amber);
 }
 
-.hero-body {
-  font-size: 1.05rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--mist);
-  max-width: 520px;
-  margin-bottom: 2.5rem;
+.hero-sub {
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  color: var(--paper-dim);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 44px;
 }
 
-.btn-row {
+.hero-actions {
   display: flex;
+  gap: 16px;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.25rem;
 }
 
 .btn-primary {
   font-family: var(--f-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--ink);
-  background: var(--bronze);
-  padding: 0.9rem 2.2rem;
+  background: var(--amber);
+  padding: 14px 28px;
   text-decoration: none;
-  transition: background 0.25s;
+  transition: opacity 0.2s;
   display: inline-block;
 }
-.btn-primary:hover { background: var(--bronze-lt); }
+
+.btn-primary:hover { opacity: 0.85; }
 
 .btn-ghost {
   font-family: var(--f-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--paper-dim);
+  border: 1px solid var(--border-md);
+  padding: 13px 28px;
   text-decoration: none;
-  padding-bottom: 2px;
-  border-bottom: 1px solid var(--border);
-  transition: color 0.25s, border-color 0.25s;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-block;
 }
-.btn-ghost:hover { color: var(--paper); border-color: var(--mist); }
 
-.hero-scroll {
+.btn-ghost:hover { color: var(--amber); border-color: var(--amber); }
+
+.hero-stats {
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  position: relative;
-  z-index: 2;
-}
-.hero-scroll span {
-  display: block;
-  width: 36px;
-  height: 1px;
-  background: var(--bronze);
-}
-.hero-scroll p {
-  font-family: var(--f-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--smoke);
+  gap: 48px;
+  flex-wrap: wrap;
 }
 
-/* ─── SECTION BASE ─── */
-.section {
-  padding: 7rem max(2.5rem, env(safe-area-inset-left, 16px));
-  border-top: 1px solid var(--border-lt);
-}
+.stat-item {}
 
-.section-label {
-  font-family: var(--f-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--bronze);
-  margin-bottom: 3rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.section-label::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--bronze);
-  flex-shrink: 0;
-}
-
-.section-h2 {
-  font-family: var(--f-display);
-  font-weight: 400;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  line-height: 1.12;
-  color: var(--paper);
-  text-wrap: balance;
-  margin-bottom: 1rem;
-}
-.section-h2 em { font-style: italic; color: var(--bronze-lt); }
-
-/* ─── ABOUT ─── */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.about-left .section-h2 { margin-bottom: 2rem; }
-
-.about-right p {
-  font-size: 0.97rem;
-  line-height: 1.9;
-  color: var(--mist);
-  margin-bottom: 1.25rem;
-}
-.about-right p strong {
-  color: var(--paper);
-  font-weight: 500;
-}
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  margin-top: 4rem;
-}
-.stat-cell {
-  background: var(--ink);
-  padding: 2rem 1.5rem;
-}
 .stat-num {
   font-family: var(--f-display);
-  font-size: 2.6rem;
-  font-weight: 400;
-  color: var(--bronze-lt);
-  line-height: 1;
-  margin-bottom: 0.4rem;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
 }
+
 .stat-label {
   font-family: var(--f-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--paper-dim);
+  margin-top: 4px;
 }
 
-/* ─── AFFILIATE SECTION ─── */
-.affiliate-intro {
-  max-width: 640px;
-  margin-bottom: 4rem;
-}
-.affiliate-intro p {
-  font-size: 1rem;
-  line-height: 1.85;
-  color: var(--mist);
-  margin-top: 1.25rem;
+/* ─── SECTION COMMON ─── */
+section {
+  padding: clamp(64px, 9vw, 112px) 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.category-tabs {
+.section-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+
+.section-heading {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  text-wrap: balance;
+  margin-bottom: 20px;
+}
+
+.section-lead {
+  font-size: 1.05rem;
+  color: var(--paper-dim);
+  max-width: 540px;
+  line-height: 1.7;
+  margin-bottom: 56px;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.service-card {
+  background: var(--ink-2);
+  padding: 36px 32px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+
+.service-card:hover { background: var(--ink-3); }
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-icon svg {
+  width: 18px; height: 18px;
+  stroke: var(--amber);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.service-card h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+
+.service-card p {
+  font-size: 0.92rem;
+  color: var(--paper-dim);
+  line-height: 1.65;
+}
+
+/* ─── WORK ─── */
+#work { background: var(--ink-2); }
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 24px;
+}
+
+.work-card {
+  background: var(--ink-3);
+  border: 1px solid var(--border);
+  padding: 32px;
+  position: relative;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.work-card:hover {
+  border-color: var(--border-md);
+  transform: translateY(-2px);
+}
+
+.work-tag {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--amber);
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.work-tag.private {
+  background: transparent;
+  color: var(--paper-dim);
+  border: 1px solid var(--border-md);
+}
+
+.work-card h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.work-card p {
+  font-size: 0.88rem;
+  color: var(--paper-dim);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.work-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 3rem;
+  gap: 8px;
 }
-.tab-btn {
+
+.work-pill {
   font-family: var(--f-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
+  font-size: 0.63rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  padding: 0.5rem 1.2rem;
+  color: var(--paper-dim);
   border: 1px solid var(--border);
-  background: transparent;
-  color: var(--smoke);
-  cursor: pointer;
-  transition: all 0.2s;
+  padding: 4px 10px;
 }
-.tab-btn:hover, .tab-btn.active {
-  border-color: var(--bronze);
-  color: var(--bronze-lt);
-  background: rgba(139, 110, 58, 0.08);
+
+/* ─── FOUNDATION BAND ─── */
+.foundation-band {
+  background: var(--amber-dim);
+  border: 1px solid rgba(232,160,48,0.18);
+  padding: 48px 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+  margin-top: 56px;
+}
+
+.foundation-band h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.foundation-band p {
+  font-size: 0.9rem;
+  color: var(--paper-dim);
+  max-width: 520px;
+  line-height: 1.65;
+}
+
+@media (max-width: 600px) {
+  .foundation-band {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+  }
+}
+
+/* ─── TOOLS ─── */
+.tools-intro {
+  max-width: 640px;
+  margin-bottom: 48px;
 }
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1px;
-  background: var(--border);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
 }
 
 .tool-card {
-  background: var(--card-bg);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  transition: background 0.25s;
+  background: var(--ink-2);
+  border: 1px solid var(--border);
+  padding: 24px;
   text-decoration: none;
   color: inherit;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.tool-card:hover { background: #201E1B; }
-.tool-card[hidden] { display: none !important; }
 
-.tool-cat {
-  font-family: var(--f-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--bronze);
+.tool-card:hover {
+  border-color: var(--amber);
+  background: var(--amber-glow);
 }
 
 .tool-name {
   font-family: var(--f-display);
-  font-size: 1.45rem;
-  font-weight: 400;
-  color: var(--paper);
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
 }
 
 .tool-desc {
-  font-size: 0.82rem;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--smoke);
+  font-size: 0.83rem;
+  color: var(--paper-dim);
+  line-height: 1.55;
   flex: 1;
 }
 
-.tool-link {
+.tool-arrow {
   font-family: var(--f-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--bronze-lt);
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.tool-link::after { content: '→'; }
-
-/* ─── PARTNER BANNER ─── */
-.partner-band {
-  background: rgba(139, 110, 58, 0.07);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 4rem max(2.5rem, env(safe-area-inset-left, 16px));
-  text-align: center;
-}
-.partner-band h2 {
-  font-family: var(--f-display);
-  font-weight: 400;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  line-height: 1.15;
-  color: var(--paper);
-  max-width: 560px;
-  margin: 0 auto 1rem;
-  text-wrap: balance;
-}
-.partner-band h2 em { font-style: italic; color: var(--bronze-lt); }
-.partner-band p {
-  font-size: 0.92rem;
-  color: var(--mist);
-  margin-bottom: 2rem;
-  line-height: 1.75;
-}
-
-/* ─── ENTITIES ─── */
-.entities-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  margin-top: 0.5rem;
-}
-.entity-card {
-  background: var(--card-bg);
-  padding: 2.5rem 2rem;
-  transition: background 0.25s;
-}
-.entity-card:hover { background: #201E1B; }
-.entity-tag {
-  font-family: var(--f-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--bronze);
-  margin-bottom: 1.25rem;
-}
-.entity-name {
-  font-family: var(--f-display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--paper);
-  margin-bottom: 0.6rem;
-  letter-spacing: 0.02em;
-}
-.entity-desc {
-  font-size: 0.82rem;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--smoke);
+  font-size: 0.68rem;
+  color: var(--amber);
+  letter-spacing: 0.05em;
 }
 
 /* ─── CONTACT ─── */
-.contact-inner {
+#contact { background: var(--ink-2); }
+
+.contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: 80px;
   align-items: start;
 }
-.contact-left .section-h2 { margin-bottom: 1.5rem; }
-.contact-left p {
-  font-size: 0.95rem;
-  line-height: 1.85;
-  color: var(--mist);
-  margin-bottom: 2rem;
+
+@media (max-width: 760px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 
-.contact-form { display: flex; flex-direction: column; gap: 1rem; }
-.form-row { display: flex; flex-direction: column; gap: 0.35rem; }
-.form-row label {
-  font-family: var(--f-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--smoke);
+.contact-info h2 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  text-wrap: balance;
+  margin-bottom: 20px;
 }
-.form-row input,
-.form-row select,
-.form-row textarea {
-  background: var(--card-bg);
+
+.contact-info p {
+  font-size: 0.95rem;
+  color: var(--paper-dim);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 400px;
+}
+
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-detail-item {}
+
+.contact-detail-label {
+  font-family: var(--f-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+
+.contact-detail-value {
+  font-size: 0.92rem;
+  color: var(--paper);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 500px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--ink-3);
   border: 1px solid var(--border);
   color: var(--paper);
   font-family: var(--f-body);
-  font-size: 0.9rem;
-  font-weight: 300;
-  padding: 0.8rem 1rem;
-  width: 100%;
-  transition: border-color 0.2s;
+  font-size: 0.92rem;
+  padding: 12px 16px;
   outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
   appearance: none;
+  -webkit-appearance: none;
 }
-.form-row input:focus,
-.form-row select:focus,
-.form-row textarea:focus { border-color: var(--bronze); }
-.form-row textarea { resize: vertical; min-height: 110px; }
-.form-row select { cursor: pointer; background-image: none; }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--amber);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A09890' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
 
 .form-submit {
   font-family: var(--f-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--ink);
-  background: var(--bronze);
+  background: var(--amber);
   border: none;
-  padding: 1rem 2.2rem;
+  padding: 15px 28px;
   cursor: pointer;
-  transition: background 0.25s;
-  align-self: flex-start;
-  margin-top: 0.5rem;
+  transition: opacity 0.2s;
+  width: 100%;
 }
-.form-submit:hover { background: var(--bronze-lt); }
+
+.form-submit:hover { opacity: 0.85; }
 
 .form-success {
-  display: none;
-  font-family: var(--f-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  color: var(--bronze-lt);
-  padding: 1rem 0;
+  background: var(--amber-dim);
+  border: 1px solid rgba(232,160,48,0.3);
+  padding: 20px 24px;
+  font-size: 0.9rem;
+  color: var(--paper);
+  line-height: 1.6;
 }
 
 /* ─── FOOTER ─── */
 footer {
-  border-top: 1px solid var(--border-lt);
-  padding: 2.5rem max(2.5rem, env(safe-area-inset-left, 16px));
+  padding: 40px 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
-.footer-mark {
-  font-family: var(--f-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.2em;
-  color: var(--bronze);
-  text-transform: uppercase;
-}
-footer p {
-  font-family: var(--f-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  color: var(--smoke);
-}
-.footer-links {
+
+footer .wrap {
   display: flex;
-  gap: 1.5rem;
-  list-style: none;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
-.footer-links a {
-  font-family: var(--f-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--smoke);
+
+.footer-logo {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--paper-dim);
   text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--bronze-lt); }
-
-/* ─── ANIMATIONS ─── */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.75s ease, transform 0.75s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
 }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 860px) {
-  nav { padding: 1.2rem max(1.25rem, env(safe-area-inset-left, 16px)); }
-  .nav-links { display: none; }
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .about-stats { grid-template-columns: repeat(3, 1fr); }
-  .entities-grid { grid-template-columns: 1fr; }
-  .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .section { padding: 5rem max(1.25rem, env(safe-area-inset-left, 16px)); }
-  .hero { padding-left: max(1.25rem, env(safe-area-inset-left, 16px)); padding-right: max(1.25rem, env(safe-area-inset-right, 16px)); }
-  footer { flex-direction: column; align-items: flex-start; padding-inline: max(1.25rem, env(safe-area-inset-left, 16px)); }
+.footer-logo span { color: var(--amber); }
+
+.footer-copy {
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--paper-dim);
+  text-align: right;
 }
 
+/* ─── REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ─── RESPONSIVE OVERRIDES ─── */
 @media (max-width: 540px) {
-  .about-stats { grid-template-columns: 1fr 1fr; }
-  .about-stats .stat-cell:last-child { grid-column: span 2; }
-  .tools-grid { grid-template-columns: 1fr; }
-  .btn-row { flex-direction: column; align-items: flex-start; }
+  .hero-stats { gap: 32px; }
+  .foundation-band h3 { font-size: 1.2rem; }
+  .work-card { padding: 24px 20px; }
+  .service-card { padding: 28px 24px 32px; }
 }
 </style>
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-mark">1218 <span>Arts</span></a>
+  <a href="#" class="nav-logo">1218 <span>Arts</span></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#entities">Portfolio</a></li>
-    <li><a href="#contact">Partner</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Partner With Us</a>
+  <a href="#contact" class="nav-cta">Work with us</a>
+  <button class="nav-mobile-toggle" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="#services" class="drawer-link">Services</a>
+  <a href="#work" class="drawer-link">Work</a>
+  <a href="#tools" class="drawer-link">Tools</a>
+  <a href="#contact" class="drawer-link">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <p class="eyebrow">1218 Arts Holdings LLC</p>
-    <h1>Tools that <em>move</em><br>creative empires</h1>
-    <p class="hero-body">
-      We build festivals, academies, and events — and we connect our communities with the brands, tools, and partners that make creative work sustainable.
-    </p>
-    <div class="btn-row">
-      <a href="#about" class="btn-primary">Our Story</a>
-      <a href="#contact" class="btn-ghost">Become a Partner</a>
+  <div class="wrap">
+    <p class="hero-eyebrow reveal">Creative Tech Director · Atlanta</p>
+    <h1 class="reveal">Tools that <em>build</em><br>creative empires.</h1>
+    <p class="hero-sub reveal">We build the digital infrastructure for alternative communities, underground events, and the founders mainstream agencies overlook — portals, tech stacks, brand systems, and AI workflows.</p>
+    <div class="hero-actions reveal">
+      <a href="#contact" class="btn-primary">Start a project</a>
+      <a href="#work" class="btn-ghost">See our work</a>
     </div>
-  </div>
-  <div class="hero-scroll">
-    <span></span>
-    <p>Curated by creators, for creators</p>
-  </div>
-  <div class="hero-bg-text" aria-hidden="true">1218</div>
-</section>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <p class="section-label">Who We Are</p>
-  <div class="about-grid">
-    <div class="about-left">
-      <h2 class="section-h2">A holding company<br>built from <em>lived</em><br>creative work</h2>
-    </div>
-    <div class="about-right reveal">
-      <p>1218 Arts Holdings LLC is the parent organization behind a growing portfolio of arts, education, and events ventures. Our name marks the day our founding partnership began — and everything we build reflects that origin.</p>
-      <p>We produce <strong>festivals and live experiences</strong>, run an <strong>arts education academy</strong>, and platform <strong>emerging artists and performers</strong>. We've operated real events, managed real production budgets, and built real communities. The tools we recommend are the ones we've actually used.</p>
-      <p>This resource hub exists because our audiences trust us — and because we believe in being transparent about the partnerships that sustain our work.</p>
-    </div>
-  </div>
-  <div class="about-stats">
-    <div class="stat-cell reveal">
-      <div class="stat-num">4+</div>
-      <div class="stat-label">Active Ventures</div>
-    </div>
-    <div class="stat-cell reveal reveal-delay-1">
-      <div class="stat-num">∞</div>
-      <div class="stat-label">Community Reach</div>
-    </div>
-    <div class="stat-cell reveal reveal-delay-2">
-      <div class="stat-num">Est.</div>
-      <div class="stat-label">12·18 — The Origin</div>
+    <div class="hero-stats reveal">
+      <div class="stat-item">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Portals built</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Active communities</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7+</div>
+        <div class="stat-label">Years in the field</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Vision supported</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- AFFILIATE TOOLS: coming soon -->
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <p class="section-eyebrow reveal">What we build</p>
+    <h2 class="section-heading reveal">Four pillars.<br>One studio.</h2>
+    <p class="section-lead reveal">From a single landing page to a full operational tech stack — we handle the infrastructure so you can focus on the community.</p>
 
-<!-- PARTNER BAND -->
-<div class="partner-band" id="partner">
-  <h2>Your tool belongs in front of <em>our</em> community</h2>
-  <p>We work with brands that serve event producers, educators, and creative entrepreneurs. If your platform solves a real problem for our audience, let's talk.</p>
-  <a href="#contact" class="btn-primary">Explore Partnership</a>
-</div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+          Portal
+        </div>
+        <h3>Event Portals</h3>
+        <p>Registration, ticketing, attendee experience, and information architecture for conferences, festivals, and private events. Built to move fast and hold up under traffic.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          Brand
+        </div>
+        <h3>Brand + Web</h3>
+        <p>Identity systems, domain strategy, site design, and deployment. Full visual presence from zero — or a rebuild that finally looks like what you've been building toward.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Stack
+        </div>
+        <h3>Tech Stack Setup</h3>
+        <p>Tools, automation, integrations, and the infrastructure layer that makes your org actually run. We pick the right stack for your size, budget, and team capacity.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20"/><path d="M12 2c-2.76 0-5 4.48-5 10s2.24 10 5 10"/><path d="M2 12h10"/><path d="M17 17l5-5-5-5"/></svg>
+          Agents
+        </div>
+        <h3>AI Workflows</h3>
+        <p>Executive assistant agents, scheduling automation, and operational AI — built specifically for creatives, event organizers, and founders who need to do more with less.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- PORTFOLIO -->
-<section class="section" id="entities">
-  <p class="section-label">Our Portfolio</p>
-  <h2 class="section-h2" style="margin-bottom: 2.5rem;">The ventures behind<br>the <em>recommendations</em></h2>
-  <div class="entities-grid">
-    <div class="entity-card reveal">
-      <div class="entity-tag">Education</div>
-      <div class="entity-name">The Academy</div>
-      <div class="entity-desc">Online courses, coaching programs, and live retreats for creative entrepreneurs and arts practitioners. Our primary community of engaged, growth-oriented students.</div>
+<!-- WORK -->
+<section id="work">
+  <div class="wrap">
+    <p class="section-eyebrow reveal">Selected work</p>
+    <h2 class="section-heading reveal">Built for communities<br>that go their own way.</h2>
+    <p class="section-lead reveal">We work with organizations that don't fit the standard template — and don't want to.</p>
+
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <span class="work-tag">Client</span>
+        <h3>The Red Door</h3>
+        <p>Full event portal for an intimate un-conference centered on radical honesty and alternative connection. Registration flow, attendee info hub, and ongoing technical direction.</p>
+        <div class="work-meta">
+          <span class="work-pill">Event Portal</span>
+          <span class="work-pill">Tech Direction</span>
+          <span class="work-pill">Ongoing</span>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <span class="work-tag">In-House</span>
+        <h3>Midsummer Nights Kink Fest</h3>
+        <p>Annual erotic arts festival — full digital presence, ticketing infrastructure, and event operations tech. Where art, kink, and community meet without apology.</p>
+        <div class="work-meta">
+          <span class="work-pill">Festival</span>
+          <span class="work-pill">Ticketing</span>
+          <span class="work-pill">Annual</span>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <span class="work-tag">In-House</span>
+        <h3>Divine Kink Academy</h3>
+        <p>Education platform for power exchange, tantra, and BDSM. Course infrastructure, member experience, and the brand system behind one of the field's most recognized voices.</p>
+        <div class="work-meta">
+          <span class="work-pill">Education</span>
+          <span class="work-pill">Platform</span>
+          <span class="work-pill">Brand</span>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <span class="work-tag private">Private</span>
+        <h3>Private Wellness Retreat</h3>
+        <p>Portal and registration system for a closed-enrollment somatic healing retreat. Attendee communication, intake forms, and pre-event logistics in one place.</p>
+        <div class="work-meta">
+          <span class="work-pill">Retreat</span>
+          <span class="work-pill">Portal</span>
+          <span class="work-pill">Private</span>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <span class="work-tag private">Private</span>
+        <h3>Private Arts Collective</h3>
+        <p>Membership site and event calendar for a collective of multidisciplinary artists. Curated access, community-first UX, and a visual identity that matched their ambition.</p>
+        <div class="work-meta">
+          <span class="work-pill">Membership</span>
+          <span class="work-pill">Brand</span>
+          <span class="work-pill">Events</span>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <span class="work-tag private">Private</span>
+        <h3>Private Conference Series</h3>
+        <p>Full-stack portal for a recurring underground conference — speaker management, session scheduling, ticketing tiers, and post-event archive. Built to scale year over year.</p>
+        <div class="work-meta">
+          <span class="work-pill">Conference</span>
+          <span class="work-pill">Full Stack</span>
+          <span class="work-pill">Recurring</span>
+        </div>
+      </div>
     </div>
-    <div class="entity-card reveal reveal-delay-1">
-      <div class="entity-tag">Events & Festivals</div>
-      <div class="entity-name">1218 Arts Events</div>
-      <div class="entity-desc">Live experiences including the annual Erotic Arts Festival and a calendar of curated shows, performances, and immersive events across the Southeast and beyond.</div>
+
+    <!-- Foundation band -->
+    <div class="foundation-band reveal">
+      <div>
+        <h3>1218 Arts Foundation</h3>
+        <p>The philanthropic arm of 1218 Arts — funding arts programming, supporting emerging creators, and investing in the cultural infrastructure of underserved communities. Grant-funded and community-driven.</p>
+      </div>
+      <a href="#contact" class="btn-ghost">Partner with us</a>
     </div>
-    <div class="entity-card reveal reveal-delay-2">
-      <div class="entity-tag">Foundation</div>
-      <div class="entity-name">1218 Arts Foundation</div>
-      <div class="entity-desc">Our nonprofit arm — funding artist grants, residencies, and community arts programming. Coming soon as we complete our 501(c)(3) formation.</div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="wrap">
+    <p class="section-eyebrow reveal">Tools we recommend</p>
+    <h2 class="section-heading reveal">The stack<br>behind the work.</h2>
+    <div class="tools-intro reveal">
+      <p style="color: var(--paper-dim); font-size: 0.95rem; line-height: 1.7;">These are tools we actually use — vetted for creative founders, event organizers, and small teams that need to move fast without breaking things.</p>
+    </div>
+
+    <div class="tools-grid">
+      <a href="https://canva.com" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-name">Canva</div>
+        <div class="tool-desc">Design everything from event flyers to pitch decks without a dedicated designer.</div>
+        <div class="tool-arrow">→ canva.com</div>
+      </a>
+      <a href="https://mercury.com" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-name">Mercury</div>
+        <div class="tool-desc">Banking built for startups and founders. No fees, real tools, and actually good UX.</div>
+        <div class="tool-arrow">→ mercury.com</div>
+      </a>
+      <a href="https://metricool.com" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-name">Metricool</div>
+        <div class="tool-desc">Social media scheduling and analytics across every platform in one dashboard.</div>
+        <div class="tool-arrow">→ metricool.com</div>
+      </a>
+      <a href="https://clickup.com" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-name">ClickUp</div>
+        <div class="tool-desc">Project management flexible enough for a solo founder or a full event team.</div>
+        <div class="tool-arrow">→ clickup.com</div>
+      </a>
+      <a href="https://netlify.com" target="_blank" rel="noopener" class="tool-card reveal">
+        <div class="tool-name">Netlify</div>
+        <div class="tool-desc">Deploy sites and portals in minutes. What we build on for most client projects.</div>
+        <div class="tool-arrow">→ netlify.com</div>
+      </a>
+      <div class="tool-card reveal" style="cursor: default; opacity: 0.5;">
+        <div class="tool-name">More coming</div>
+        <div class="tool-desc">We're always testing new tools. Check back for updated recommendations.</div>
+        <div class="tool-arrow" style="color: var(--paper-dim);">— soon</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section" id="contact">
-  <p class="section-label">Work With Us</p>
-  <div class="contact-inner">
-    <div class="contact-left">
-      <h2 class="section-h2">Let's build<br>something <em>together</em></h2>
-      <p>Whether you're a brand looking to reach creative professionals, an artist seeking support, or a tool maker who wants authentic placement — we'd love to hear from you.</p>
-      <p>Affiliate partnerships, sponsorships, and collaborations are reviewed on a rolling basis. We only work with products we can genuinely endorse to our community.</p>
-    </div>
-    <div class="contact-right">
-      <form class="contact-form" id="contact-form">
-        <div class="form-row">
-          <label for="cf-name">Your Name</label>
-          <input type="text" id="cf-name" name="name" placeholder="Full name" required>
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p class="section-eyebrow">Work with us</p>
+        <h2>Let's build<br>something real.</h2>
+        <p>We work with conferences, collectives, event producers, and founders who are building something that matters to a community. Tell us what you're working on.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-item">
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">hello@1218arts.vip</div>
+          </div>
+          <div class="contact-detail-item">
+            <div class="contact-detail-label">Based in</div>
+            <div class="contact-detail-value">Atlanta, GA · Remote-first</div>
+          </div>
         </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm">
         <div class="form-row">
-          <label for="cf-email">Email Address</label>
-          <input type="email" id="cf-email" name="email" placeholder="you@company.com" required>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
         </div>
-        <div class="form-row">
-          <label for="cf-type">Inquiry Type</label>
-          <select id="cf-type" name="type">
-            <option value="">Select one</option>
-            <option value="affiliate">Affiliate / Partnership</option>
-            <option value="sponsorship">Event Sponsorship</option>
-            <option value="collab">Creative Collaboration</option>
-            <option value="artist">Artist Support / Grants</option>
-            <option value="other">Other</option>
+        <div class="field">
+          <label for="inquiry">What are you building?</label>
+          <select id="inquiry" name="inquiry" required>
+            <option value="" disabled selected>Choose a category</option>
+            <option>Event portal or conference infrastructure</option>
+            <option>Brand + website</option>
+            <option>Full tech stack setup</option>
+            <option>AI workflow or executive assistant agent</option>
+            <option>Foundation / arts funding partnership</option>
+            <option>Something else</option>
           </select>
         </div>
-        <div class="form-row">
-          <label for="cf-message">Tell Us More</label>
-          <textarea id="cf-message" name="message" placeholder="What are you working on?"></textarea>
+        <div class="field">
+          <label for="message">Tell us more</label>
+          <textarea id="message" name="message" placeholder="What's the project? What does your community look like? What do you need?" required></textarea>
         </div>
-        <button type="submit" class="form-submit">Send Message</button>
-        <p class="form-success" id="form-success">✦ Message received — we'll be in touch soon.</p>
+        <button type="submit" class="form-submit">Send message</button>
+        <div class="form-success" id="formSuccess" hidden>
+          <strong>Message received.</strong> We'll be in touch within 48 hours.
+        </div>
       </form>
     </div>
   </div>
@@ -774,38 +1084,52 @@ footer p {
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-mark">1218 Arts</div>
-  <ul class="footer-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <p>© 2026 1218 Arts Holdings LLC · Atlanta, GA</p>
+  <div class="wrap">
+    <a href="#" class="footer-logo">1218 <span>Arts</span></a>
+    <p class="footer-copy">© 2024–2026 1218 Arts Holdings LLC<br>Atlanta, GA · 1218arts.vip</p>
+  </div>
 </footer>
 
 <script>
-  // Nav scroll state
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+// Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => io.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add('visible'));
-  }
+// Mobile menu
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.getElementById('navDrawer');
+menuBtn.addEventListener('click', () => {
+  const open = navDrawer.classList.toggle('open');
+  menuBtn.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+});
 
-  // Contact form
-  const form = document.getElementById('contact-form');
-  const success = document.getElementById('form-success');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    form.querySelectorAll('input, select, textarea, button').forEach(el => el.disabled = true);
-    success.style.display = 'block';
+// Close drawer on link click
+navDrawer.querySelectorAll('.drawer-link').forEach(link => {
+  link.addEventListener('click', () => {
+    navDrawer.classList.remove('open');
+    menuBtn.classList.remove('open');
   });
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Form
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.querySelectorAll('input, select, textarea, button').forEach(el => el.disabled = true);
+  document.getElementById('formSuccess').hidden = false;
+});
 </script>
