@@ -70,7 +70,7 @@ body {
   color: var(--paper);
   font-family: var(--f-body);
   font-weight: 300;
-  font-size: 17px;
+  font-size: 19px;
   line-height: 1.65;
   overflow-x: hidden;
   padding-left: max(0px, env(safe-area-inset-left, 0px));
@@ -232,7 +232,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 
 /* ─── HERO ─── */
 .hero {
-  padding: clamp(80px, 11vw, 140px) 0 clamp(64px, 9vw, 110px);
+  padding: clamp(48px, 7vw, 100px) 0 clamp(40px, 6vw, 80px);
   border-bottom: var(--rule);
 }
 
@@ -247,7 +247,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 .hero h1 {
   font-family: var(--f-display);
   font-weight: 800;
-  font-size: clamp(3.2rem, 8.5vw, 7.2rem);
+  font-size: clamp(3.6rem, 8.5vw, 7.2rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -317,7 +317,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 
 /* ─── SERVICES ─── */
 #services {
-  padding: clamp(72px, 9vw, 112px) 0;
+  padding: clamp(40px, 6vw, 80px) 0;
   border-bottom: var(--rule);
 }
 
@@ -328,7 +328,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 .services-header h2 {
   font-family: var(--f-display);
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
@@ -350,8 +350,12 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
   border-top: var(--rule);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   .services-list { grid-template-columns: 1fr; }
+  .service-item, .service-item:nth-child(even) {
+    padding: 28px 0;
+    border-right: none;
+  }
 }
 
 .service-item {
@@ -401,7 +405,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 
 /* ─── WORK ─── */
 #work {
-  padding: clamp(72px, 9vw, 112px) 0;
+  padding: clamp(40px, 6vw, 80px) 0;
   border-bottom: var(--rule);
 }
 
@@ -412,7 +416,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 .work-header h2 {
   font-family: var(--f-display);
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
@@ -527,7 +531,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 /* ─── TOOLS PAGE ─── */
 .tools-page {
   display: none;
-  padding: clamp(72px, 9vw, 112px) 0;
+  padding: clamp(40px, 6vw, 80px) 0;
 }
 
 .tools-page.active { display: block; }
@@ -540,7 +544,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 .tools-header h2 {
   font-family: var(--f-display);
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
@@ -616,7 +620,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 
 /* ─── CONTACT ─── */
 #contact {
-  padding: clamp(72px, 9vw, 112px) 0;
+  padding: clamp(40px, 6vw, 80px) 0;
   border-top: var(--rule);
   background: var(--ink-2);
 }
@@ -635,7 +639,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 .contact-head h2 {
   font-family: var(--f-display);
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
@@ -968,7 +972,7 @@ footer .wrap {
   </section>
 
   <!-- TOOLS TEASER (inline) -->
-  <section id="tools-teaser" style="padding: clamp(56px,7vw,88px) 0; border-top: var(--rule);">
+  <section id="tools-teaser" style="padding: clamp(36px,5vw,64px) 0; border-top: var(--rule);">
     <div class="wrap">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;">
         <div>
@@ -1065,11 +1069,11 @@ footer .wrap {
     <div class="contact-grid">
       <div class="contact-head">
         <h2>Let's build something real.</h2>
-        <p>We work with conferences, collectives, event producers, and founders building something that matters to a community. Tell us what you're working on.</p>
+        <p>We work with conferences, collectives, event producers, and founders building something that matters to a community. Tell us what you're working on, and our Creative Tech Director will reach out to you.</p>
         <div class="contact-detail">
           <div>
             <span class="detail-label">Email</span>
-            <span class="detail-val">hello@1218arts.vip</span>
+            <span class="detail-val">create@1218arts.vip</span>
           </div>
           <div>
             <span class="detail-label">Based in</span>
