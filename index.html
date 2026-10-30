@@ -409,6 +409,42 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
   border-bottom: var(--rule);
 }
 
+/* Mockup tap-to-reveal */
+.work-card {
+  cursor: pointer;
+  position: relative;
+}
+
+.mockup-preview {
+  display: none;
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.mockup-preview svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.work-card.expanded .mockup-preview {
+  display: block;
+}
+
+.mockup-hint {
+  font-size: 0.8rem;
+  color: var(--amber);
+  margin-top: 12px;
+  font-family: var(--f-serif);
+  font-style: italic;
+}
+
+.work-card.expanded .mockup-hint { display: none; }
+
 .work-header {
   margin-bottom: 56px;
 }
@@ -457,7 +493,40 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 }
 
 .work-card.green-tint {
-  background: var(--green);
+  background: #D8E8D4;
+  color: #1E3020;
+}
+.work-card.green-tint h3,
+.work-card.green-tint p {
+  color: #1E3020;
+}
+.work-card.green-tint .work-type {
+  color: #4A7050;
+}
+.work-card.green-tint .work-tag {
+  background: rgba(30,48,32,0.12);
+  color: #2A4A30;
+}
+.work-card.green-tint .mockup-hint {
+  color: #4A7050;
+}
+:root[data-theme="dark"] .work-card.green-tint {
+  background: #1C3020;
+  color: #C8DCC0;
+}
+:root[data-theme="dark"] .work-card.green-tint h3,
+:root[data-theme="dark"] .work-card.green-tint p {
+  color: #C8DCC0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .work-card.green-tint {
+    background: #1C3020;
+    color: #C8DCC0;
+  }
+  :root:not([data-theme="light"]) .work-card.green-tint h3,
+  :root:not([data-theme="light"]) .work-card.green-tint p {
+    color: #C8DCC0;
+  }
 }
 
 .work-type {
@@ -892,8 +961,9 @@ footer .wrap {
       </div>
 
       <div class="work-grid">
-        <!-- Wide featured card -->
-        <div class="work-card wide">
+
+        <!-- THE RED DOOR — dark crimson, intimate, editorial -->
+        <div class="work-card wide" data-mockup="trd">
           <span class="work-type">Client</span>
           <h3>The Red Door</h3>
           <p>Full event portal for an intimate un-conference centered on radical honesty and alternative connection. Registration flow, ticketing, attendee info hub, and ongoing technical direction as Creative Tech Director.</p>
@@ -903,9 +973,65 @@ footer .wrap {
             <span class="work-tag">Tech Direction</span>
             <span class="work-tag">Ongoing</span>
           </div>
+          <div class="mockup-hint">Tap to preview →</div>
+          <div class="mockup-preview">
+            <svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, serif">
+              <!-- bg -->
+              <rect width="700" height="420" fill="#0D0608"/>
+              <!-- browser bar -->
+              <rect width="700" height="32" fill="#1A0C0F"/>
+              <circle cx="16" cy="16" r="5" fill="#3A1520"/>
+              <circle cx="30" cy="16" r="5" fill="#3A1520"/>
+              <circle cx="44" cy="16" r="5" fill="#3A1520"/>
+              <rect x="70" y="9" width="380" height="14" rx="3" fill="#2A1018"/>
+              <text x="260" y="20" font-size="8" fill="#7A4050" font-family="system-ui">thereddoorunconference.com</text>
+              <!-- hero image suggestion — deep red wash -->
+              <rect x="0" y="32" width="700" height="200" fill="#1A0509"/>
+              <rect x="0" y="32" width="700" height="200" fill="url(#rdGrad)"/>
+              <defs>
+                <linearGradient id="rdGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3D0A14" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#0D0608" stop-opacity="1"/>
+                </linearGradient>
+              </defs>
+              <!-- decorative door arch outline -->
+              <path d="M310 180 L310 100 Q350 60 390 100 L390 180 Z" fill="none" stroke="#8B1A2A" stroke-width="1.5" opacity="0.6"/>
+              <!-- headline -->
+              <text x="350" y="105" text-anchor="middle" font-size="11" fill="#D4A0A8" font-family="Georgia,serif" letter-spacing="4">THE RED DOOR</text>
+              <text x="350" y="130" text-anchor="middle" font-size="24" fill="#F5E8E8" font-family="Georgia,serif" font-style="italic">Un-Conference 2025</text>
+              <text x="350" y="152" text-anchor="middle" font-size="10" fill="#9A6070" font-family="system-ui" letter-spacing="2">ATLANTA · JUNE 14–15</text>
+              <!-- CTA button -->
+              <rect x="290" y="162" width="120" height="28" fill="#8B1A2A"/>
+              <text x="350" y="180" text-anchor="middle" font-size="10" fill="#F5E8E8" font-family="system-ui" font-weight="600">Register Now</text>
+              <!-- nav -->
+              <text x="60" y="22" font-size="9" fill="#C08090" font-family="Georgia,serif" font-style="italic">The Red Door</text>
+              <text x="540" y="22" font-size="8" fill="#7A5060" font-family="system-ui">About  Schedule  Register</text>
+              <!-- info strip -->
+              <rect x="0" y="232" width="700" height="60" fill="#130408"/>
+              <text x="140" y="256" text-anchor="middle" font-size="9" fill="#8B3040" font-family="system-ui" letter-spacing="1">WHEN</text>
+              <text x="140" y="272" text-anchor="middle" font-size="11" fill="#D4A0A8" font-family="Georgia,serif">June 14 – 15, 2025</text>
+              <text x="350" y="256" text-anchor="middle" font-size="9" fill="#8B3040" font-family="system-ui" letter-spacing="1">WHERE</text>
+              <text x="350" y="272" text-anchor="middle" font-size="11" fill="#D4A0A8" font-family="Georgia,serif">Atlanta, GA</text>
+              <text x="560" y="256" text-anchor="middle" font-size="9" fill="#8B3040" font-family="system-ui" letter-spacing="1">CAPACITY</text>
+              <text x="560" y="272" text-anchor="middle" font-size="11" fill="#D4A0A8" font-family="Georgia,serif">Limited · 40 Attendees</text>
+              <!-- schedule section -->
+              <rect x="0" y="292" width="700" height="128" fill="#0D0608"/>
+              <text x="60" y="316" font-size="10" fill="#8B1A2A" font-family="system-ui" letter-spacing="2">SCHEDULE</text>
+              <line x1="60" y1="322" x2="640" y2="322" stroke="#2A1018" stroke-width="1"/>
+              <text x="60" y="340" font-size="9" fill="#6A4050" font-family="system-ui">Fri 7pm</text>
+              <text x="120" y="340" font-size="11" fill="#C09098" font-family="Georgia,serif">Opening Circle &amp; Welcome Dinner</text>
+              <text x="60" y="360" font-size="9" fill="#6A4050" font-family="system-ui">Sat 9am</text>
+              <text x="120" y="360" font-size="11" fill="#C09098" font-family="Georgia,serif">Morning Sessions · Radical Honesty Practicum</text>
+              <text x="60" y="380" font-size="9" fill="#6A4050" font-family="system-ui">Sat 7pm</text>
+              <text x="120" y="380" font-size="11" fill="#C09098" font-family="Georgia,serif">Evening Gathering · Connection &amp; Ceremony</text>
+              <text x="60" y="400" font-size="9" fill="#6A4050" font-family="system-ui">Sun 10am</text>
+              <text x="120" y="400" font-size="11" fill="#C09098" font-family="Georgia,serif">Closing Integration Circle</text>
+            </svg>
+          </div>
         </div>
 
-        <div class="work-card">
+        <!-- MIDSUMMER NIGHTS KINK FEST — electric violet, festival energy -->
+        <div class="work-card" data-mockup="mnkf">
           <span class="work-type">Client</span>
           <h3>Midsummer Nights Kink Fest</h3>
           <p>Annual erotic arts festival — digital presence, ticketing infrastructure, and event operations tech. Where art, kink, and community meet without apology.</p>
@@ -914,9 +1040,70 @@ footer .wrap {
             <span class="work-tag">Ticketing</span>
             <span class="work-tag">Annual</span>
           </div>
+          <div class="mockup-hint">Tap to preview →</div>
+          <div class="mockup-preview">
+            <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui">
+              <rect width="340" height="420" fill="#0A0014"/>
+              <rect width="340" height="28" fill="#100020"/>
+              <circle cx="14" cy="14" r="4" fill="#1E0038"/>
+              <circle cx="26" cy="14" r="4" fill="#1E0038"/>
+              <circle cx="38" cy="14" r="4" fill="#1E0038"/>
+              <rect x="58" y="7" width="200" height="12" rx="3" fill="#1A0030"/>
+              <text x="158" y="17" font-size="7" fill="#6030A0" font-family="system-ui" text-anchor="middle">midsummernightskinkfest.com</text>
+              <!-- hero wash -->
+              <rect x="0" y="28" width="340" height="160" fill="#0A0014"/>
+              <ellipse cx="170" cy="80" rx="140" ry="80" fill="#2A0060" opacity="0.5"/>
+              <ellipse cx="80" cy="120" rx="80" ry="50" fill="#600090" opacity="0.2"/>
+              <ellipse cx="260" cy="60" rx="70" ry="40" fill="#9000C0" opacity="0.15"/>
+              <!-- stars -->
+              <circle cx="40" cy="50" r="1" fill="#C080FF" opacity="0.8"/>
+              <circle cx="90" cy="35" r="1.5" fill="#E0A0FF" opacity="0.6"/>
+              <circle cx="200" cy="45" r="1" fill="#C080FF" opacity="0.9"/>
+              <circle cx="290" cy="60" r="1" fill="#E0A0FF" opacity="0.7"/>
+              <circle cx="130" cy="70" r="1" fill="#C080FF" opacity="0.5"/>
+              <circle cx="310" cy="100" r="1.5" fill="#E0A0FF" opacity="0.8"/>
+              <!-- title -->
+              <text x="170" y="90" text-anchor="middle" font-size="9" fill="#C080FF" letter-spacing="3">MIDSUMMER NIGHTS</text>
+              <text x="170" y="116" text-anchor="middle" font-size="22" fill="#F0D0FF" font-weight="800" letter-spacing="-1">Kink Fest</text>
+              <text x="170" y="134" text-anchor="middle" font-size="8" fill="#9060C0" letter-spacing="3">ATLANTA · AUGUST 2025</text>
+              <!-- ticket CTA -->
+              <rect x="90" y="144" width="160" height="28" rx="14" fill="#7020C0"/>
+              <text x="170" y="162" text-anchor="middle" font-size="10" fill="#F0D0FF" font-weight="700">Get Tickets</text>
+              <!-- ticket tiers -->
+              <rect x="0" y="188" width="340" height="90" fill="#0D0020"/>
+              <text x="170" y="208" text-anchor="middle" font-size="8" fill="#6030A0" letter-spacing="2">TICKET TIERS</text>
+              <!-- tier cards -->
+              <rect x="14" y="216" width="90" height="52" rx="4" fill="#1A0035" stroke="#3A1060" stroke-width="1"/>
+              <text x="59" y="234" text-anchor="middle" font-size="8" fill="#9060C0">General</text>
+              <text x="59" y="250" text-anchor="middle" font-size="14" fill="#E0B0FF" font-weight="700">$85</text>
+              <text x="59" y="262" text-anchor="middle" font-size="7" fill="#6030A0">2-day access</text>
+              <rect x="124" y="216" width="90" height="52" rx="4" fill="#2A0060" stroke="#7020C0" stroke-width="1.5"/>
+              <text x="169" y="234" text-anchor="middle" font-size="8" fill="#C080FF">VIP</text>
+              <text x="169" y="250" text-anchor="middle" font-size="14" fill="#F0D0FF" font-weight="700">$150</text>
+              <text x="169" y="262" text-anchor="middle" font-size="7" fill="#9060C0">+workshops</text>
+              <rect x="234" y="216" width="90" height="52" rx="4" fill="#1A0035" stroke="#3A1060" stroke-width="1"/>
+              <text x="279" y="234" text-anchor="middle" font-size="8" fill="#9060C0">Patron</text>
+              <text x="279" y="250" text-anchor="middle" font-size="14" fill="#E0B0FF" font-weight="700">$250</text>
+              <text x="279" y="262" text-anchor="middle" font-size="7" fill="#6030A0">all access</text>
+              <!-- lineup -->
+              <rect x="0" y="278" width="340" height="142" fill="#080010"/>
+              <text x="20" y="300" font-size="8" fill="#6030A0" letter-spacing="2">LINEUP &amp; WORKSHOPS</text>
+              <line x1="20" y1="306" x2="320" y2="306" stroke="#1E0038" stroke-width="1"/>
+              <rect x="14" y="314" width="312" height="26" rx="3" fill="#120025"/>
+              <text x="28" y="330" font-size="9" fill="#C080FF">Sensual Rope Arts</text>
+              <text x="28" y="342" font-size="8" fill="#6030A0">Sat 2pm · Studio A</text>
+              <rect x="14" y="346" width="312" height="26" rx="3" fill="#120025"/>
+              <text x="28" y="362" font-size="9" fill="#C080FF">Power Exchange Fundamentals</text>
+              <text x="28" y="374" font-size="8" fill="#6030A0">Sat 4pm · Studio B</text>
+              <rect x="14" y="378" width="312" height="26" rx="3" fill="#120025"/>
+              <text x="28" y="394" font-size="9" fill="#C080FF">Erotic Art Exhibition &amp; Opening</text>
+              <text x="28" y="406" font-size="8" fill="#6030A0">Fri 8pm · Main Hall</text>
+            </svg>
+          </div>
         </div>
 
-        <div class="work-card">
+        <!-- DIVINE KINK ACADEMY — gold on black, academic authority -->
+        <div class="work-card" data-mockup="dka">
           <span class="work-type">Client</span>
           <h3>Divine Kink Academy</h3>
           <p>Education platform for power exchange, tantra, and BDSM. Course infrastructure, member experience, and brand system for one of the field's most recognized voices.</p>
@@ -925,9 +1112,68 @@ footer .wrap {
             <span class="work-tag">Platform</span>
             <span class="work-tag">Brand</span>
           </div>
+          <div class="mockup-hint">Tap to preview →</div>
+          <div class="mockup-preview">
+            <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" font-family="Georgia,serif">
+              <rect width="340" height="420" fill="#0A0800"/>
+              <rect width="340" height="28" fill="#120F00"/>
+              <circle cx="14" cy="14" r="4" fill="#1E1800"/>
+              <circle cx="26" cy="14" r="4" fill="#1E1800"/>
+              <circle cx="38" cy="14" r="4" fill="#1E1800"/>
+              <rect x="58" y="7" width="200" height="12" rx="3" fill="#1A1400"/>
+              <text x="158" y="17" font-size="7" fill="#806020" font-family="system-ui" text-anchor="middle">divinekinkacademy.com</text>
+              <!-- nav -->
+              <text x="20" y="22" font-size="8" fill="#C0900A" font-family="Georgia,serif" font-style="italic">Divine Kink Academy</text>
+              <text x="240" y="22" font-size="7" fill="#5A4010" font-family="system-ui">Courses  Members  About</text>
+              <!-- hero -->
+              <rect x="0" y="28" width="340" height="120" fill="#0F0B00"/>
+              <rect x="0" y="28" width="340" height="120" fill="url(#dkaGrad)"/>
+              <defs>
+                <linearGradient id="dkaGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#2A1E00" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#0A0800" stop-opacity="1"/>
+                </linearGradient>
+              </defs>
+              <!-- ornament -->
+              <path d="M170 48 L178 68 L198 68 L182 80 L188 100 L170 88 L152 100 L158 80 L142 68 L162 68 Z" fill="none" stroke="#80600A" stroke-width="1" opacity="0.5"/>
+              <text x="170" y="80" text-anchor="middle" font-size="8" fill="#A08020" letter-spacing="3">DIVINE KINK</text>
+              <text x="170" y="100" text-anchor="middle" font-size="20" fill="#D4A820" font-style="italic">Academy</text>
+              <text x="170" y="116" text-anchor="middle" font-size="7.5" fill="#604A10" letter-spacing="2">POWER · TANTRA · LIBERATION</text>
+              <!-- course grid -->
+              <rect x="0" y="148" width="340" height="16" fill="#0D0A00"/>
+              <text x="170" y="160" text-anchor="middle" font-size="8" fill="#806020" letter-spacing="2" font-family="system-ui">FEATURED COURSES</text>
+              <rect x="14" y="170" width="146" height="90" fill="#120E00" stroke="#2A2000" stroke-width="1"/>
+              <rect x="14" y="170" width="146" height="40" fill="#1E1600"/>
+              <text x="87" y="188" text-anchor="middle" font-size="8" fill="#A08020" letter-spacing="1" font-family="system-ui">FOUNDATIONS</text>
+              <text x="87" y="202" text-anchor="middle" font-size="10" fill="#D4A820" font-style="italic">The Art of<tspan x="87" dy="13">Dominant Energy</tspan></text>
+              <text x="87" y="228" text-anchor="middle" font-size="8" fill="#5A4010" font-family="system-ui">6 modules · Self-paced</text>
+              <text x="87" y="244" text-anchor="middle" font-size="9" fill="#C09018" font-family="system-ui">$197</text>
+              <rect x="180" y="170" width="146" height="90" fill="#120E00" stroke="#2A2000" stroke-width="1"/>
+              <rect x="180" y="170" width="146" height="40" fill="#1E1600"/>
+              <text x="253" y="188" text-anchor="middle" font-size="8" fill="#A08020" letter-spacing="1" font-family="system-ui">ADVANCED</text>
+              <text x="253" y="202" text-anchor="middle" font-size="10" fill="#D4A820" font-style="italic">Sacred Kink<tspan x="253" dy="13">&amp; Tantra</tspan></text>
+              <text x="253" y="228" text-anchor="middle" font-size="8" fill="#5A4010" font-family="system-ui">8 modules · Live cohort</text>
+              <text x="253" y="244" text-anchor="middle" font-size="9" fill="#C09018" font-family="system-ui">$497</text>
+              <!-- member dashboard preview -->
+              <rect x="0" y="270" width="340" height="150" fill="#0A0800"/>
+              <text x="20" y="290" font-size="8" fill="#806020" letter-spacing="2" font-family="system-ui">MEMBER DASHBOARD</text>
+              <rect x="14" y="298" width="312" height="52" fill="#120E00" stroke="#2A2000" stroke-width="1"/>
+              <rect x="14" y="298" width="4" height="52" fill="#C09018"/>
+              <text x="28" y="316" font-size="10" fill="#D4A820" font-style="italic">Welcome back, Scholar.</text>
+              <text x="28" y="332" font-size="8" fill="#5A4010" font-family="system-ui">Continue: Dominant Energy · Module 4 of 6</text>
+              <rect x="230" y="310" width="80" height="22" fill="#C09018"/>
+              <text x="270" y="325" text-anchor="middle" font-size="9" fill="#0A0800" font-weight="700" font-family="system-ui">Resume →</text>
+              <!-- progress -->
+              <rect x="14" y="358" width="312" height="8" rx="4" fill="#1E1600"/>
+              <rect x="14" y="358" width="190" height="8" rx="4" fill="#806020"/>
+              <text x="20" y="380" font-size="8" fill="#5A4010" font-family="system-ui">Progress: 61% complete</text>
+              <text x="14" y="400" font-size="8" fill="#3A2C00" font-family="system-ui">Next live session: Saturday, Aug 3 · 7pm EST</text>
+            </svg>
+          </div>
         </div>
 
-        <div class="work-card green-tint">
+        <!-- PRIVATE WELLNESS RETREAT — sage green, calm, somatic -->
+        <div class="work-card green-tint" data-mockup="pwr">
           <span class="work-type">Client</span>
           <h3>Private Wellness Retreat</h3>
           <p>Portal and registration system for a closed-enrollment somatic healing retreat. Intake, communication, and pre-event logistics in one place.</p>
@@ -935,9 +1181,62 @@ footer .wrap {
             <span class="work-tag">Retreat</span>
             <span class="work-tag">Portal</span>
           </div>
+          <div class="mockup-hint">Tap to preview →</div>
+          <div class="mockup-preview">
+            <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui">
+              <rect width="340" height="420" fill="#F4F0E8"/>
+              <rect width="340" height="28" fill="#EAE6DC"/>
+              <circle cx="14" cy="14" r="4" fill="#C8C0A8"/>
+              <circle cx="26" cy="14" r="4" fill="#C8C0A8"/>
+              <circle cx="38" cy="14" r="4" fill="#C8C0A8"/>
+              <rect x="58" y="7" width="200" height="12" rx="3" fill="#DDD8CC"/>
+              <text x="158" y="17" font-size="7" fill="#8A8070" text-anchor="middle">somaticsanctuary.com/portal</text>
+              <!-- nav -->
+              <text x="20" y="22" font-size="8" fill="#4A6040" font-family="Georgia,serif" font-style="italic">Somatic Sanctuary</text>
+              <text x="250" y="22" font-size="7" fill="#8A9880">Portal  About  Contact</text>
+              <!-- hero — muted sage wash -->
+              <rect x="0" y="28" width="340" height="130" fill="#D8E0D0"/>
+              <ellipse cx="170" cy="93" rx="170" ry="80" fill="#C4D4BC" opacity="0.6"/>
+              <!-- botanical suggestion -->
+              <path d="M60 158 Q70 120 80 100 Q90 80 100 90 Q90 110 85 140 Z" fill="#A0B898" opacity="0.4"/>
+              <path d="M270 158 Q260 120 250 100 Q240 80 230 90 Q240 110 245 140 Z" fill="#A0B898" opacity="0.4"/>
+              <text x="170" y="85" text-anchor="middle" font-size="9" fill="#5A7050" letter-spacing="3" font-family="Georgia,serif">SOMATIC SANCTUARY</text>
+              <text x="170" y="108" text-anchor="middle" font-size="18" fill="#2A4030" font-family="Georgia,serif" font-style="italic">Healing Retreat</text>
+              <text x="170" y="126" text-anchor="middle" font-size="8" fill="#7A9070" letter-spacing="2">CLOSED ENROLLMENT · 12 PARTICIPANTS</text>
+              <text x="170" y="143" text-anchor="middle" font-size="8" fill="#8A6040" letter-spacing="1">Blue Ridge Mountains · Sept 2025</text>
+              <!-- intake form preview -->
+              <rect x="0" y="158" width="340" height="16" fill="#EAE6DC"/>
+              <text x="170" y="170" text-anchor="middle" font-size="8" fill="#5A7050" letter-spacing="2">YOUR INTAKE PORTAL</text>
+              <rect x="14" y="180" width="312" height="180" fill="#fff" stroke="#D8D0C0" stroke-width="1" rx="2"/>
+              <text x="28" y="200" font-size="9" fill="#2A4030" font-family="Georgia,serif" font-style="italic">Welcome, Participant.</text>
+              <text x="28" y="216" font-size="8" fill="#7A7060">Complete your intake before Aug 15.</text>
+              <!-- form fields -->
+              <text x="28" y="238" font-size="7" fill="#8A9080">Preferred name</text>
+              <rect x="28" y="242" width="280" height="16" rx="2" fill="#F4F0E8" stroke="#C8C0A8" stroke-width="1"/>
+              <text x="28" y="274" font-size="7" fill="#8A9080">Somatic experience level</text>
+              <rect x="28" y="278" width="280" height="16" rx="2" fill="#F4F0E8" stroke="#C8C0A8" stroke-width="1"/>
+              <text x="36" y="290" font-size="8" fill="#5A7050">Beginner</text>
+              <text x="28" y="310" font-size="7" fill="#8A9080">Any physical considerations?</text>
+              <rect x="28" y="314" width="280" height="28" rx="2" fill="#F4F0E8" stroke="#C8C0A8" stroke-width="1"/>
+              <!-- submit -->
+              <rect x="28" y="348" width="130" height="20" fill="#4A6040"/>
+              <text x="93" y="362" text-anchor="middle" font-size="8" fill="#F4F0E8" font-weight="600">Save progress</text>
+              <!-- progress indicator -->
+              <text x="280" y="362" font-size="7" fill="#8A9080">Step 1 of 4</text>
+              <!-- logistics strip -->
+              <rect x="0" y="360" width="340" height="60" fill="#D8E0D0"/>
+              <text x="80" y="380" text-anchor="middle" font-size="7" fill="#5A7050" letter-spacing="1">ARRIVAL</text>
+              <text x="80" y="395" text-anchor="middle" font-size="9" fill="#2A4030" font-family="Georgia,serif">Sept 5, 3pm</text>
+              <text x="170" y="380" text-anchor="middle" font-size="7" fill="#5A7050" letter-spacing="1">DEPARTURE</text>
+              <text x="170" y="395" text-anchor="middle" font-size="9" fill="#2A4030" font-family="Georgia,serif">Sept 8, noon</text>
+              <text x="265" y="380" text-anchor="middle" font-size="7" fill="#5A7050" letter-spacing="1">MEALS</text>
+              <text x="265" y="395" text-anchor="middle" font-size="9" fill="#2A4030" font-family="Georgia,serif">All included</text>
+            </svg>
+          </div>
         </div>
 
-        <div class="work-card">
+        <!-- PRIVATE ARTS COLLECTIVE — stark white/black, gallery aesthetic -->
+        <div class="work-card" data-mockup="pac">
           <span class="work-type">Client</span>
           <h3>Private Arts Collective</h3>
           <p>Membership site and event calendar for a collective of multidisciplinary artists. Curated access, community-first UX, and an identity that matched their ambition.</p>
@@ -946,9 +1245,54 @@ footer .wrap {
             <span class="work-tag">Brand</span>
             <span class="work-tag">Events</span>
           </div>
+          <div class="mockup-hint">Tap to preview →</div>
+          <div class="mockup-preview">
+            <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui">
+              <rect width="340" height="420" fill="#F8F8F6"/>
+              <rect width="340" height="28" fill="#F0F0EE"/>
+              <circle cx="14" cy="14" r="4" fill="#D0D0CC"/>
+              <circle cx="26" cy="14" r="4" fill="#D0D0CC"/>
+              <circle cx="38" cy="14" r="4" fill="#D0D0CC"/>
+              <rect x="58" y="7" width="200" height="12" rx="3" fill="#E4E4E0"/>
+              <text x="158" y="17" font-size="7" fill="#909090" text-anchor="middle">collective.members</text>
+              <!-- header -->
+              <text x="20" y="22" font-size="9" fill="#1A1A1A" font-weight="700" letter-spacing="3">FORM</text>
+              <text x="270" y="22" font-size="7" fill="#909090">Work  Events  Members</text>
+              <!-- hero — stark, gallery white -->
+              <rect x="0" y="28" width="340" height="100" fill="#F8F8F6"/>
+              <line x1="20" y1="55" x2="60" y2="55" stroke="#1A1A1A" stroke-width="2"/>
+              <text x="20" y="75" font-size="22" fill="#1A1A1A" font-weight="800" letter-spacing="-1">FORM</text>
+              <text x="20" y="95" font-size="10" fill="#606060">A collective of multidisciplinary artists.</text>
+              <text x="20" y="110" font-size="10" fill="#606060">By invitation only.</text>
+              <rect x="240" y="68" width="80" height="24" fill="#1A1A1A"/>
+              <text x="280" y="84" text-anchor="middle" font-size="8" fill="#F8F8F6" font-weight="600">Member Login</text>
+              <!-- work grid — masonry feel -->
+              <rect x="0" y="128" width="340" height="8" fill="#EEEEED"/>
+              <text x="20" y="148" font-size="7" fill="#909090" letter-spacing="2">RECENT WORK</text>
+              <rect x="20" y="156" width="140" height="90" fill="#1A1A1A"/>
+              <text x="90" y="210" text-anchor="middle" font-size="8" fill="#606060">Photo series</text>
+              <rect x="170" y="156" width="150" height="42" fill="#D8D8D4"/>
+              <rect x="170" y="204" width="150" height="42" fill="#E8E4DC"/>
+              <text x="245" y="180" text-anchor="middle" font-size="8" fill="#1A1A1A">Mixed media</text>
+              <text x="245" y="228" text-anchor="middle" font-size="8" fill="#1A1A1A">Performance</text>
+              <!-- events -->
+              <rect x="0" y="256" width="340" height="8" fill="#EEEEED"/>
+              <text x="20" y="276" font-size="7" fill="#909090" letter-spacing="2">UPCOMING</text>
+              <rect x="20" y="284" width="300" height="34" fill="#fff" stroke="#E0E0DC" stroke-width="1"/>
+              <text x="36" y="299" font-size="9" fill="#1A1A1A" font-weight="600">Open Studio Night</text>
+              <text x="36" y="311" font-size="7.5" fill="#909090">Fri Jul 18 · 7pm · Members + 1 guest</text>
+              <rect x="20" y="324" width="300" height="34" fill="#fff" stroke="#E0E0DC" stroke-width="1"/>
+              <text x="36" y="339" font-size="9" fill="#1A1A1A" font-weight="600">Summer Exhibition Opening</text>
+              <text x="36" y="351" font-size="7.5" fill="#909090">Sat Aug 2 · 6pm · Members only</text>
+              <rect x="20" y="364" width="300" height="34" fill="#fff" stroke="#E0E0DC" stroke-width="1"/>
+              <text x="36" y="379" font-size="9" fill="#1A1A1A" font-weight="600">Critique Circle — Q3</text>
+              <text x="36" y="391" font-size="7.5" fill="#909090">Sun Aug 10 · 2pm · Core members</text>
+            </svg>
+          </div>
         </div>
 
-        <div class="work-card">
+        <!-- PRIVATE CONFERENCE SERIES — deep navy, professional underground -->
+        <div class="work-card" data-mockup="pcs">
           <span class="work-type">Client</span>
           <h3>Private Conference Series</h3>
           <p>Full-stack portal for a recurring underground conference — speaker management, ticketing tiers, session scheduling, and post-event archive built to scale year over year.</p>
@@ -957,7 +1301,73 @@ footer .wrap {
             <span class="work-tag">Ticketing</span>
             <span class="work-tag">Full Stack</span>
           </div>
+          <div class="mockup-hint">Tap to preview →</div>
+          <div class="mockup-preview">
+            <svg viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui">
+              <rect width="340" height="420" fill="#08101E"/>
+              <rect width="340" height="28" fill="#0C1628"/>
+              <circle cx="14" cy="14" r="4" fill="#142038"/>
+              <circle cx="26" cy="14" r="4" fill="#142038"/>
+              <circle cx="38" cy="14" r="4" fill="#142038"/>
+              <rect x="58" y="7" width="200" height="12" rx="3" fill="#101C30"/>
+              <text x="158" y="17" font-size="7" fill="#304870" text-anchor="middle">nexusconference.com</text>
+              <!-- nav -->
+              <text x="20" y="22" font-size="8" fill="#4080C0" font-weight="700" letter-spacing="2">NEXUS</text>
+              <text x="240" y="22" font-size="7" fill="#304060">Sessions  Speakers  Register</text>
+              <!-- hero -->
+              <rect x="0" y="28" width="340" height="110" fill="#08101E"/>
+              <rect x="0" y="28" width="4" height="110" fill="#2060C0"/>
+              <text x="20" y="58" font-size="9" fill="#304870" letter-spacing="3">NEXUS CONFERENCE</text>
+              <text x="20" y="84" font-size="22" fill="#E0ECFF" font-weight="800" letter-spacing="-1">Vol. IV</text>
+              <text x="20" y="104" font-size="9" fill="#4878A0">Underground ideas. Above-ground impact.</text>
+              <text x="20" y="120" font-size="8" fill="#2A4060">Oct 11–12 · Atlanta, GA · Invite-only</text>
+              <rect x="240" y="80" width="80" height="24" fill="#2060C0"/>
+              <text x="280" y="96" text-anchor="middle" font-size="8" fill="#E0ECFF" font-weight="600">Register →</text>
+              <!-- stats bar -->
+              <rect x="0" y="138" width="340" height="48" fill="#0C1628"/>
+              <text x="65" y="158" text-anchor="middle" font-size="18" fill="#2060C0" font-weight="800">24</text>
+              <text x="65" y="174" text-anchor="middle" font-size="7" fill="#304870" letter-spacing="1">SPEAKERS</text>
+              <line x1="120" y1="148" x2="120" y2="178" stroke="#142038" stroke-width="1"/>
+              <text x="170" y="158" text-anchor="middle" font-size="18" fill="#2060C0" font-weight="800">48</text>
+              <text x="170" y="174" text-anchor="middle" font-size="7" fill="#304870" letter-spacing="1">SESSIONS</text>
+              <line x1="222" y1="148" x2="222" y2="178" stroke="#142038" stroke-width="1"/>
+              <text x="280" y="158" text-anchor="middle" font-size="18" fill="#2060C0" font-weight="800">200</text>
+              <text x="280" y="174" text-anchor="middle" font-size="7" fill="#304870" letter-spacing="1">ATTENDEES</text>
+              <!-- schedule -->
+              <text x="20" y="204" font-size="8" fill="#304870" letter-spacing="2">SCHEDULE · DAY ONE</text>
+              <line x1="20" y1="210" x2="320" y2="210" stroke="#142038" stroke-width="1"/>
+              <rect x="20" y="218" width="300" height="30" fill="#0C1628"/>
+              <rect x="20" y="218" width="2" height="30" fill="#2060C0"/>
+              <text x="30" y="232" font-size="8" fill="#4080C0">9:00 AM</text>
+              <text x="80" y="232" font-size="9" fill="#C0D8F0">Opening Keynote</text>
+              <text x="80" y="244" font-size="7" fill="#304060">Main Stage · 90 min</text>
+              <rect x="20" y="254" width="300" height="30" fill="#0C1628"/>
+              <rect x="20" y="254" width="2" height="30" fill="#4878A0"/>
+              <text x="30" y="268" font-size="8" fill="#4080C0">11:00 AM</text>
+              <text x="80" y="268" font-size="9" fill="#C0D8F0">Breakout: Community Infrastructure</text>
+              <text x="80" y="280" font-size="7" fill="#304060">Room B · 60 min</text>
+              <rect x="20" y="290" width="300" height="30" fill="#0C1628"/>
+              <rect x="20" y="290" width="2" height="30" fill="#4878A0"/>
+              <text x="30" y="304" font-size="8" fill="#4080C0">2:00 PM</text>
+              <text x="80" y="304" font-size="9" fill="#C0D8F0">Workshop: Funding Alternative Spaces</text>
+              <text x="80" y="316" font-size="7" fill="#304060">Room A · 75 min</text>
+              <!-- speaker strip -->
+              <rect x="0" y="330" width="340" height="90" fill="#0A1420"/>
+              <text x="20" y="350" font-size="8" fill="#304870" letter-spacing="2">SPEAKERS</text>
+              <circle cx="45" cy="380" r="22" fill="#142038" stroke="#2060C0" stroke-width="1"/>
+              <text x="45" y="384" text-anchor="middle" font-size="7" fill="#4080C0">Speaker</text>
+              <circle cx="105" cy="380" r="22" fill="#142038" stroke="#142038" stroke-width="1"/>
+              <text x="105" y="384" text-anchor="middle" font-size="7" fill="#304060">Speaker</text>
+              <circle cx="165" cy="380" r="22" fill="#142038" stroke="#142038" stroke-width="1"/>
+              <text x="165" y="384" text-anchor="middle" font-size="7" fill="#304060">Speaker</text>
+              <circle cx="225" cy="380" r="22" fill="#142038" stroke="#142038" stroke-width="1"/>
+              <text x="225" y="384" text-anchor="middle" font-size="7" fill="#304060">Speaker</text>
+              <text x="280" y="378" font-size="9" fill="#2060C0">+20</text>
+              <text x="280" y="392" font-size="7" fill="#304060">more</text>
+            </svg>
+          </div>
         </div>
+
       </div>
 
       <!-- Foundation -->
@@ -1193,6 +1603,13 @@ document.getElementById('toolsBtn').addEventListener('click', showTools);
 document.getElementById('backBtn').addEventListener('click', showMain);
 document.getElementById('logoLink').addEventListener('click', e => { e.preventDefault(); showMain(); window.scrollTo(0,0); });
 document.getElementById('footerLogo').addEventListener('click', e => { e.preventDefault(); showMain(); window.scrollTo(0,0); });
+
+// Work card tap-to-reveal mockups
+document.querySelectorAll('.work-card[data-mockup]').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('expanded');
+  });
+});
 
 // Form
 document.getElementById('contactForm').addEventListener('submit', function(e) {
