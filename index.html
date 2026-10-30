@@ -16,6 +16,40 @@
 */
 
 :root {
+  /* Light-first — warm cream base, near-black ink */
+  --ink:      #F5F0E8;
+  --ink-2:    #EDE7DC;
+  --ink-3:    #E4DDD0;
+  --paper:    #1A1714;
+  --paper-2:  #5C564E;
+  --amber:    #C8861A;
+  --green:    #2A3D2E;
+  --green-lt: #3A5440;
+  --rule:     1px solid rgba(26,23,20,0.1);
+
+  --f-display: 'Syne', system-ui, sans-serif;
+  --f-serif:   'Instrument Serif', Georgia, serif;
+  --f-body:    'Inter', system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+/* Dark mode — flip back to near-black when OS is dark */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink:      #0C0B09;
+    --ink-2:    #141210;
+    --ink-3:    #1C1916;
+    --paper:    #EAE4D8;
+    --paper-2:  #9A9082;
+    --amber:    #E8A030;
+    --green:    #2A3D2E;
+    --green-lt: #3A5440;
+    --rule:     1px solid rgba(234,228,216,0.1);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
   --ink:      #0C0B09;
   --ink-2:    #141210;
   --ink-3:    #1C1916;
@@ -25,39 +59,7 @@
   --green:    #2A3D2E;
   --green-lt: #3A5440;
   --rule:     1px solid rgba(234,228,216,0.1);
-
-  --f-display: 'Syne', system-ui, sans-serif;
-  --f-serif:   'Instrument Serif', Georgia, serif;
-  --f-body:    'Inter', system-ui, sans-serif;
-
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --ink:      #F0EBE1;
-    --ink-2:    #E6E0D4;
-    --ink-3:    #DDD6C8;
-    --paper:    #1A1714;
-    --paper-2:  #6A6258;
-    --amber:    #B87820;
-    --green:    #1E3020;
-    --green-lt: #2A4230;
-    --rule:     1px solid rgba(26,23,20,0.1);
-    color-scheme: light;
-  }
-}
-:root[data-theme="light"] {
-  --ink:      #F0EBE1;
-  --ink-2:    #E6E0D4;
-  --ink-3:    #DDD6C8;
-  --paper:    #1A1714;
-  --paper-2:  #6A6258;
-  --amber:    #B87820;
-  --green:    #1E3020;
-  --green-lt: #2A4230;
-  --rule:     1px solid rgba(26,23,20,0.1);
-  color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -402,7 +404,8 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
   display: grid;
   grid-template-columns: 5fr 4fr;
   gap: 2px;
-  background: rgba(234,228,216,0.07);
+  background: var(--rule);
+  background: rgba(26,23,20,0.08);
 }
 
 @media (max-width: 700px) {
@@ -541,7 +544,7 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
   gap: 2px;
-  background: rgba(234,228,216,0.07);
+  background: rgba(26,23,20,0.08);
 }
 
 .tool-item {
