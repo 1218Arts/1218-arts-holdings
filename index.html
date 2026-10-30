@@ -349,20 +349,21 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
 /* Definition-list layout — not cards */
 .services-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
   border-top: var(--rule);
 }
 
 @media (max-width: 700px) {
-  .services-list { grid-template-columns: 1fr; }
+  .services-list { grid-template-columns: 1fr !important; }
   .service-item, .service-item:nth-child(even) {
-    padding: 32px 0;
-    border-right: none;
+    padding: 32px 0 !important;
+    border-right: none !important;
+    padding-left: 0 !important;
   }
-  .service-item h3 { font-size: 1.4rem; }
-  .service-item p  { font-size: 1.05rem; line-height: 1.7; }
-  .service-num     { font-size: 1.1rem; margin-bottom: 10px; }
+  .service-item h3 { font-size: 1.4rem !important; }
+  .service-item p  { font-size: 1.05rem !important; line-height: 1.7 !important; }
+  .service-num     { font-size: 1.1rem !important; margin-bottom: 10px !important; }
 }
 
 .service-item {
@@ -472,13 +473,12 @@ nav.scrolled { border-bottom-color: var(--rule); border-bottom: var(--rule); }
   display: grid;
   grid-template-columns: 5fr 4fr;
   gap: 2px;
-  background: var(--rule);
   background: rgba(26,23,20,0.08);
 }
 
 @media (max-width: 700px) {
   .work-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 2px;
   }
   .work-card {
